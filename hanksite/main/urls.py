@@ -1,10 +1,13 @@
-from django.conf.urls import include, url
+from django.conf.urls import include, url,patterns
 from django.contrib import admin
 
-urlpatterns = [
-    # Examples:
-    # url(r'^$', 'hanksite.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
-   url(r'^index/$', 'main.views.index'),    
-]
+urlpatterns = patterns('',
+    url(r'^index/$', 'main.views.index'),                         
+#    url(r'^heading/$', 'main.views.heading'),
+    url(r'^footing/$', 'main.views.content'),    
+    url(r'^menu/$', 'main.views.menu'),
+    url(r'^bar/$', 'main.views.bar'),
+    url(r'^content/$', 'main.views.content'),
+    url(r'^logout/$', 'main.views.logout'),
+    url(r'^root/$', 'main.views.root'),        
+)
