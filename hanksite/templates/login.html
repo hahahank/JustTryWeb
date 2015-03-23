@@ -6,23 +6,30 @@
 
 {% block content %}
 
-
 <script>
-	  myModule.config(function($interpolateProvider) {
-    		$interpolateProvider.startSymbol('{?');
-		$interpolateProvider.endSymbol('?}');
-	  });
+  angular.module('bindExample', [])
+    .controller('ExampleController', ['$scope', function($scope) {
+      $scope.name = 'Whirled';
+    }]);
 </script>
-
-<div ng-app>
-	{? 100000 | price ?}
-	<br>
-	數量: <input type="number" ng-model="quantity" ng-init="quantity = 1">
-	<br>
-	單價: <input type="number" ng-model="price" ng-init="price = 29911">
-	<br>
-	總價: {? quantity * price ?}
+<div ng-controller="ExampleController">
+  Enter name: <input type="text" ng-model="name"><br>
+  Hello <span ng-bind="name"></span>!
 </div>
+
+
+
+
+
+
+
+    {% load angular %}
+    <div ng-init="yourName = 'foobar'">
+        <p>{% ng yourName %}</p>
+    </div>
+
+
+
 
 <div class="container">
 	<form action="/main/root/" method="post" id="loginform" accept-charset="utf-8">{% csrf_token %}
