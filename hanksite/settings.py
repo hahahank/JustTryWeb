@@ -15,7 +15,15 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
+PROJECT_DIR = os.path.dirname(__file__)
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    ("script", os.path.join(STATIC_ROOT,'script')),
+    ("css", os.path.join(STATIC_ROOT,'css')),
+    ("images", os.path.join(STATIC_ROOT,'images')),
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
@@ -129,7 +137,4 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/dev/howto/static-files/
-
-STATIC_URL = '/static/'
+ 
