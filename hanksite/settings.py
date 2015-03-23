@@ -53,7 +53,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'urls'
-
+'''
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -68,7 +68,7 @@ TEMPLATES = [
             ],
         },
     },
-]
+]'''
 TEMPLATE_DIRS = (
     'templates',
     os.path.join(SETTINGS_PATH, ''),
