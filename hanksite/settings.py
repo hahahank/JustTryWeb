@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -71,6 +71,7 @@ TEMPLATES = [
 ]
 TEMPLATE_DIRS = (
     'templates',
+    os.path.join(SETTINGS_PATH, ''),
 )
 
 
