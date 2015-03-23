@@ -69,6 +69,10 @@ TEMPLATES = [
         },
     },
 ]
+TEMPLATE_DIRS = (
+    'templates',
+)
+
 
 WSGI_APPLICATION = 'wsgi.application'
 
