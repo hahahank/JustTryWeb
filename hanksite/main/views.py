@@ -9,7 +9,7 @@ def login(request):
     c = {}
     c.update(csrf(request))    
     print "login "
-    return render_to_response('templates/base.html', c)
+    return render_to_response('templates/login.html', c)
 
 # Redirect to logout page
 def logout(request):    
