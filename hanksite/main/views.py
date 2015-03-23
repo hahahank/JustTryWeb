@@ -1,7 +1,7 @@
 # Main page redirect
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response, get_object_or_404
-from __main__ import DEBUG
+
 
 # Redirect to login page
 def login(request):
