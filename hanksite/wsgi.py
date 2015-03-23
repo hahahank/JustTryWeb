@@ -1,5 +1,5 @@
 """
-WSGI config for hanksite project.
+WSGI config for aaa project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
