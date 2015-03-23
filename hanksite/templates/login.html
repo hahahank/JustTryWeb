@@ -1,10 +1,29 @@
 {% extends "templates/base.html" %}
 
-{% block head %}  <link rel=StyleSheet href="/scripts/main/main.css" TYPE="text/css"> {% endblock %}
+{% block head %}  {% endblock %}
 
 {% block body %}  {% endblock %}
 
 {% block content %}
+
+
+<script>
+	  myModule.config(function($interpolateProvider) {
+    		$interpolateProvider.startSymbol('{?');
+		$interpolateProvider.endSymbol('?}');
+	  });
+</script>
+
+<div ng-app>
+	{? 100000 | price ?}
+	<br>
+	數量: <input type="number" ng-model="quantity" ng-init="quantity = 1">
+	<br>
+	單價: <input type="number" ng-model="price" ng-init="price = 29911">
+	<br>
+	總價: {? quantity * price ?}
+</div>
+
 <div class="container">
 	<form action="/main/root/" method="post" id="loginform" accept-charset="utf-8">{% csrf_token %}
 		<table border="0" style="float:right;margin-top:195px;margin-right:330px;">
@@ -31,5 +50,6 @@
 			</tr>
 		</table>
 	</form>		
-</div>	
+</div>
+	
 {% endblock %}
