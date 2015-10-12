@@ -1,3 +1,1 @@
-# nobearlabs
-# url : http://nobearlabs.com/
-# Build with django & bootstrap & other tools
+# Just try web tools
