@@ -1,0 +1,103 @@
+#######################
+# RRD Tool For Python #
+#######################
+sudo apt-get install python-rrd
+
+
+####################
+# Maria DB install #
+####################
+sudo apt-get install mariadb-server
+
+####################
+# Database create  #
+####################
+
+ubuntu@ip-172-31-9-243:~/mySite$ mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 35
+Server version: 5.5.44-MariaDB-1ubuntu0.14.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2015, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> CREATE DATABASE myproject CHARACTER SET UTF8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> CREATE USER myprojectuser@localhost IDENTIFIED BY 'password';
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON myproject.* TO myprojectuser@localhost;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> exit
+Bye
+
+
+#######################
+## Multi file upload ##
+#######################
+# web:
+#     	https://github.com/Chive/django-multiupload
+# install :
+	pip install django-multiupload
+
+############ #
+###NO USE###
+############
+
+# SSL
+sudo apt-get install stunnel4
+openssl req -new -x509 -days 365 -nodes -out vpsee.pem -keyout vpsee.pem
+chmod 600 vpsee.pem
+# vi https
+pid =
+cert = vpsee.pem
+debug = 7
+foreground = yes
+
+[https]
+accept = 443
+connect = 8000
+
+# stunnel https
+
+
+
+#===================================
+Database Timezone Error
+When: 
+	ValueError: Database returned an invalid value in QuerySet.datetimes(). Are time zone definitions for your database and pytz installed?
+use Commands:
+	# mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p  mysql
+
+
+
+#===================================
+Q: Social Login with following error message:
+UnicodeEncodeError at /complete/facebook/
+'ascii' codec can't encode characters in position 0-2: ordinal not in range(128)
+
+
+
+
+
+ANS: update database character set to utf8 when restart service
+
+MariaDB [(none)]> ALTER DATABASE mydb   CHARACTER SET  = 'utf8';
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> show create database mydb;
++----------+---------------------------------------------------------------+
+| Database | Create Database                                               |
++----------+---------------------------------------------------------------+
+| mydb     | CREATE DATABASE `mydb` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+---------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+

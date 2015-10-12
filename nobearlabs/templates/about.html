@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block content %}
+
+
+
+<div class="row">
+  <div class="container">
+    <div class="col-xs-12">
+      <h2 class="text-center">About Us</h2>
+      <hr class="long-separator" style="text-align:center">
+    </div>
+	
+    <div id="memberlist"></div>
+<!--
+    <div class="col-lg-4">
+      <a href="profile.html">
+          <div class="col-sm-4">
+             <div class="text-center">
+                <img alt="image" class="img-circle m-t-xs img-responsive" src="{{STATIC_URL}}/media/member_head.jpg">
+                <div class="m-t-xs font-bold">CEO</div>
+             </div>
+          </div>
+      </a>
+      <div class="col-sm-8">
+         <h3><strong>Hank Yang</strong></h3>
+         <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+         <address>
+         <strong>JiaLiDon, Inc.</strong><br>
+                 [Address] [post num]<br>
+                 Taoyuan Taiwan<br>
+         <abbr title="Phone">P:</abbr> (+886) 910XXXXXX
+         </address>
+       </div>
+    </div>
+    <div class="col-lg-4">
+      <a href="profile.html">
+          <div class="col-sm-4">
+             <div class="text-center">
+                <img alt="image" class="img-circle m-t-xs img-responsive" src="{{STATIC_URL}}/media/member_head.jpg">
+                <div class="m-t-xs font-bold">CEO</div>
+             </div>
+          </div>
+      </a>
+      <div class="col-sm-8">
+         <h3><strong>Hank Yang</strong></h3>
+         <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+         <address>
+         <strong>JiaLiDon, Inc.</strong><br>
+                 [Address] [post num]<br>
+                 Taoyuan Taiwan<br>
+         <abbr title="Phone">P:</abbr> (+886) 910XXXXXX
+         </address>
+       </div>
+    </div>
+    <div class="col-lg-4">
+      <a href="profile.html">
+          <div class="col-sm-4">
+             <div class="text-center">
+                <img alt="image" class="img-circle m-t-xs img-responsive" src="{{STATIC_URL}}/media/member_head.jpg">
+                <div class="m-t-xs font-bold">CEO</div>
+             </div>
+          </div>
+      </a>
+      <div class="col-sm-8">
+         <h3><strong>Hank Yang</strong></h3>
+         <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+         <address>
+         <strong>JiaLiDon, Inc.</strong><br>
+                 [Address] [post num]<br>
+                 Taoyuan Taiwan<br>
+         <abbr title="Phone">P:</abbr> (+886) 910XXXXXX
+         </address>
+       </div>
+    </div>
+    <div class="col-lg-4">
+      <a href="profile.html">
+          <div class="col-sm-4">
+             <div class="text-center">
+                <img alt="image" class="img-circle m-t-xs img-responsive" src="{{STATIC_URL}}/media/member_head.jpg">
+                <div class="m-t-xs font-bold">CEO</div>
+             </div>
+          </div>
+      </a>
+      <div class="col-sm-8">
+         <h3><strong>Hank Yang</strong></h3>
+         <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+         <address>
+         <strong>JiaLiDon, Inc.</strong><br>
+                 [Address] [post num]<br>
+                 Taoyuan Taiwan<br>
+         <abbr title="Phone">P:</abbr> (+886) 910XXXXXX
+         </address>
+       </div>
+    </div>
+    <div class="col-lg-4">
+      <a href="profile.html">
+          <div class="col-sm-4">
+             <div class="text-center">
+                <img alt="image" class="img-circle m-t-xs img-responsive" src="{{STATIC_URL}}/media/member_head.jpg">
+                <div class="m-t-xs font-bold">CEO</div>
+             </div>
+          </div>
+      </a>
+      <div class="col-sm-8">
+         <h3><strong>Hank Yang</strong></h3>
+         <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+         <address>
+         <strong>JiaLiDon, Inc.</strong><br>
+                 [Address] [post num]<br>
+                 Taoyuan Taiwan<br>
+         <abbr title="Phone">P:</abbr> (+886) 910XXXXXX
+         </address>
+       </div>
+    </div>   
+-->
+  </div>
+</div>
+
+<!--
+<iframe src="https://docs.google.com/forms/d/1lrwWlgGrdTmTonAEa9k8Lg0Gks1fUR-RjawS-dfvdbg/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+-->
+<div class="container">
+  <h2 class="text-center">Contact Us</h2>
+  <hr class="long-separator" style="text-align:center">
+  <script type="text/javascript">var submitted=false;</script>
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){window.location='thankyou';}"></iframe>
+
+  <div class="col-xs-12">
+    <form action="https://docs.google.com/forms/d/1lrwWlgGrdTmTonAEa9k8Lg0Gks1fUR-RjawS-dfvdbg/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true;">
+      <div class-"row">
+        <div class="form-group">
+          <div class="col-xs-6"><input type="text" name="entry.305859078" value="" class="form-control" id="entry_305859078" dir="auto" aria-label="Name  " aria-required="true" required="" title="" placeholder="Name"></div>
+          <div class="col-xs-6"><input type="text" name="entry.248648842" value="" class="form-control" id="entry_248648842" dir="auto" aria-label="E-mail  請輸入符合模式的內容" aria-required="true" required="" pattern=".*@.*" title="請輸入符合模式的內容" placeholder="E-mail"></div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12"><textarea name="entry.1622825212" rows="12" cols="0" class="form-control" id="entry_1622825212" dir="auto" aria-label="Message  " aria-required="true" required="" placeholder="Message"></textarea></div>
+        </div>
+      </div>
+      <div class="col-xs-12">
+         <input type="submit" class="btn btn-primary" value="Send Message">
+         <input type="reset" class="btn" value="Clear Form">
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="container">
+<!--
+<iframe src="https://docs.google.com/spreadsheets/d/1QY-QUaQkEnbWQ0dkz0jFB7HS4HJN3Ji1NqMBOsBqseU/pubhtml?gid=1487166394&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+-->
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+
+<script>
+//$.getJSON("https://spreadsheets.google.com/feeds/list/1QY-QUaQkEnbWQ0dkz0jFB7HS4HJN3Ji1NqMBOsBqseU/1/public/values?alt=json-in-script&callback=?", function(json){
+$.getJSON("https://spreadsheets.google.com/feeds/list/1tUlr8aRRCYTbrx6MagmPjd3S4aWUhNx0Jc9etChMUkw/1/public/values?alt=json-in-script&callback=?", function(json){
+	var e = json.feed.entry,
+	l = e.length,
+	html = "",
+	entry, i,name,phone,add1,add2,job,location,other1,other2,other3,city,pic;
+	for (i = 0; i < l; i++) //>
+	{
+		entry = e[i];
+		name	= entry.gsx$name.$t;
+		phone	= entry.gsx$phone.$t;
+		add1	= entry.gsx$add1.$t;
+		add2	= entry.gsx$add2.$t;
+		job	= entry.gsx$job.$t;
+		location= entry.gsx$location.$t;
+		other1	= entry.gsx$other1.$t;
+		other2	= entry.gsx$other2.$t;
+		other3	= entry.gsx$other3.$t;
+		city	= entry.gsx$city.$t;
+		pic	= entry.gsx$pic.$t;
+//		html +=  name + " " + phone +  " " + message + "<br/>";
+    		html += '<div class="col-lg-4"><a href="profile.html"><div class="col-sm-4"><div class="text-center">';
+                html += '<img alt="image" class="img-circle m-t-xs img-responsive" src="'+pic+'">';
+                html += '<div class="m-t-xs font-bold">'+ job  +'</div></div></div></a>';
+		html += '<div class="col-sm-8"><h3><strong>'+ name +'</strong></h3>';
+ 	 	html += '<p><i class="fa fa-map-marker"></i>'+ location + '</p>';
+		html += '<address><strong>'+add1+'</strong><br>';
+		html += add2 + '<br>'+ city +'<br>';
+		html += '<abbr title="Phone">P:</abbr>'+ phone +'</address></div></div>';
+
+
+	}
+	$("#memberlist").html(html);
+});
+</script>
+
+
+
+
+</div>
+
+
+{% endblock %}

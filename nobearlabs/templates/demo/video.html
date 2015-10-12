@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block content %}
+<script>
+//Disable right click on Video Background
+$(document).ready(function() {
+    $("video").bind("contextmenu",function(){
+        return false;
+        });
+ } );
+</script>
+
+<h3> Video Backgruond </h3>
+<header id="vedio-header" style="height: 550px;">
+  <video width="100%" height="100%"  preload="auto" id="video" autoplay="" muted="" loop="" >
+    <source src="{{STATIC_URL}}/media/video/ex1.mp4" type="video/mp4">
+  </video>
+  <div class ="col-xs-12">
+    <h1 style="text-align:center">Hello Apple!!</h1>
+    <p style="text-align:center">This is just some description ,hahahaha</p>
+    <hr class="long-separator" style="text-align:center">
+    <h2 style="text-align:center">Do you like this?</h2>
+    <p style="text-align:center"><button id="colorless-btn">Like</button></p>
+  </div>
+</header>
+<div class="container">
+  <div class="col-xs-6">
+    <p>Youtube</p>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item"  width="100%" height="100%" src="https://www.youtube.com/embed/zpOULjyy-n8" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="col-xs-6">
+    <p>Youtube 2 </p>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe width="1280" height="720" src="https://www.youtube-nocookie.com/embed/VAJieCjwMN0?rel=0&amp;controls=0&autoplay=1&autohide=0&loop=1&showinfo=0&playlist=VAJieCjwMN0" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+
+
+  <div class="col-xs-6">
+    <p> Vimeo:</p>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe src="https://player.vimeo.com/video/131348542" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/131348542">Inventec EBG RD lab introduction</a> from <a href="https://vimeo.com/user21797861">Susan</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+    </div>
+  </div>
+
+  <div class="col-xs-6">
+    <p> 加字幕 ：</p>
+    <video id="video_test" width="100%" height="100%"  poster="{{STATIC_URL}}/media/video/logo/mySite_logo5.png" muted controls>
+      <source src="{{STATIC_URL}}/media/video/IMG_0851.MOV"  >
+      <track src="{{STATIC_URL}}/media/edward.vtt" label="English subtitles" kind="subtitles" srclang="en" default></track>
+    </video>
+  </div>
+
+  <script type="text/javascript">
+  var pl =[ "{{STATIC_URL}}/media/video/ex1.mp4", "{{STATIC_URL}}/media/video/ex2.mp4", "{{STATIC_URL}}/media/video/ex3.mp4"];
+  var playid = 0;
+  $(function() {
+    // Click playlist 
+    $("#playlist li").on("click", function() {
+	playid =  $(this).attr("movieurl");
+        $("#videoarea").attr({
+            "src": pl[playid],
+            "poster": "",
+            "autoplay": "autoplay"
+        })
+    })
+
+    // Init video
+    $("#videoarea").attr({
+        "src": pl[$("#playlist li").eq(0).attr("movieurl")],
+    })
+
+    // Loop the playlist
+    document.getElementById('videoarea').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+	playid = (playid+1)%3;
+        $("#videoarea").attr({
+            "src": pl[playid],
+            "poster": "",
+//            "autoplay": "autoplay"
+        })
+	$("#videoarea").load();
+	$("#videoarea").play();
+
+        // What you want to do after the event
+    }
+  })
+  </script>
+  <div class="col-xs-6">
+    <p>Play List</p>
+    <video id="videoarea" muted  preload="auto" controls="controls" poster="" src=""  width="640px" height="480px" autoplay style="background: #000"></video>
+    <ul id="playlist">
+        <li id="list1" movieurl="0" moviesposter="{{STATIC_URL}}/media/mySite_logo5.png">ED1</li>
+        <li id="list2" movieurl="1">ED2</li>          
+        <li id="list3" movieurl="2">ED3</li>      
+    </ul>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

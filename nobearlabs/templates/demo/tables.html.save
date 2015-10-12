@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}django-bootstrap3{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <h1>Demo <small>Ajax and Tables </small></h1>
+  </div>
+  <div class="row">
+    <!-- Blue -->
+    <div class="col-md-12 ">
+      <h5>DataTables</h5>
+      <div class="panel-group">
+        <div class=" panel panel-primary ">
+          <div class="panel-heading">
+            <h4 class="panel-title">PTT 熱門看板</h4>
+  	  </div>
+        </div>
+    	<div  class="panel-body well">
+	  <div class"table">
+	    <table class="table table-bordered table-hover table-striped" id="tablePtt" width="100%"></table>
+	  </div>
+ 	</div>
+      </div>
+    </div>
+    <!-- End Blud -->
+    <!-- Green -->
+    <div class="col-md-12 ">
+      <h5>FooTables</h5>
+      <div class="panel-group">
+        <div class=" panel panel-primary ">
+          <div class="panel-heading">
+            <h4 class="panel-title">Foo Tables test </h4>
+          </div>
+        </div>
+        <div  class="panel-body well">
+	  <!-- Create FooTable Filter Input -->
+	  <div class="col-xs-12">
+ 	    <div style="float:left">
+              Search: <input id="filterText" type="text">
+	    </div>
+	    <div  style="float:right">
+              Status: <select class="filter-status">
+                <option></option>
+                <option value="active">Active</option>
+                <option value="disabled">Disabled</option>
+                <option value="suspended">Suspended</option>
+              </select>
+              <a href="#clear" class="clear-filter" title="clear filter">[clear]</a>
+              <a href="#api" class="filter-api" title="Filter using the Filter API">[filter API]</a> 
+	    </div>
+          </div> 	  
+	  <!-- END FooTable Filter  -->
+          <div class="table col-xs-12" > 
+	    <table class=" table toggle-arrow-tiny table-striped" data-filter=#filterText id="table-foo" data-page-size="3">
+  	      <thead>
+		<tr>
+		  <th data-sort-initial="true" data-toggle="true"  >Name</th>
+		  <th data-hide="phone" data-class="highlight">Job Title</th>
+		  <th data-hide="phone,tablet"data-ignore="true">Status</th>
+		  <th data-hide="all" >Description</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<tr>
+                  <td>User1 </td>
+                  <td>student</td>
+                  <td>idle</td>
+                  <td>Hahaha </td>
+                </tr>
+		<tr>
+                  <td>Hank </td>
+                  <td>Pig</td>
+                  <td>Sleep</td>
+                  <td>ZzZzzzzzZ </td>
+                </tr>
+                <tr>
+                  <td>Tank </td>
+                  <td>Tank</td>
+                  <td>gogo</td>
+                  <td>ZzZzzzzzZ </td>
+                </tr>
+                <tr>
+                  <td>Banana </td>
+                  <td>hello</td>
+                  <td>Eat</td>
+                  <td>PPP </td>
+                </tr>
+
+	      </tbody>
+	      <tfoot class="hide-if-no-paging">
+		<tr>
+	  	  <td colspan="5">
+		    <div class="paging">
+		      <ul class="pagination"></ul>
+		    </div>
+		  </td>
+		</tr>
+  	      </tfoot>
+	    </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Green -->
+    <!-- Yellow -->
+    <div class="col-md-12 ">
+      <h5>FooTables & AJAX</h5>
+      <div class="panel-group">
+        <div class=" panel panel-primary ">
+          <div class="panel-heading">
+            <h4 class="panel-title">Foo Tables test AJAX </h4>
+          </div>
+        </div>
+        <div  class="panel-body well">
+          <!-- Create FooTable Filter Input -->
+	  <div class="col-xs-12">
+            <div style="float:left">
+              Search: <input id="filterTextAjax" type="text">
+            </div>
+	  </div>
+          <!-- END FooTable Filter  -->
+          <div class="table col-xs-12">
+            <table class=" table toggle-arrow-tiny table-striped" data-filter=#filterTextAjax id="table-fooAjax" data-page-size="5">
+              <thead>
+                <tr>
+                  <th  data-toggle="true"  data-type="numeric"  >Index</th>
+                  <th data-hide="phone" data-class="highlight">Name</th>
+                  <th data-sort-initial="true" data-hide="phone,tablet"  data-type="numeric"  data-hide="all">Number</th>
+		  <th data-hide="phone">Action</th>
+		  <th data-hide="phone">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot class="hide-if-no-paging">
+                <tr>
+                  <td colspan="5">
+                    <div class="paging">
+                      <ul class="pagination"></ul>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Yellow -->
+
+
+  </div>
+</div>
+
+
+<script>
+
+// AJAX & FOOTABLE
+function loadFooTable(){
+  console.log('Load Table : table-fooAjax');
+  $.ajax({
+     url:"/demo/ptt/",
+     dataType:"json",
+     data:{format:'json'},
+     success:function(data){
+	$.each(data, function(index, item){
+          var row = '<tr>'
+          row += '<td>' + item[0] +'</td>' 
+	  row += '<td>' + item[1] +'</td>'
+          row += '<td>' + item[2] +'</td>'
+ 	  row += '<td>' + +'</td>'
+	  if(item[2] > 1000){
+	    row += '<td>' +<span class="label label-danger">爆</span> +'</td>'
+	  }
+	  else{
+	    row += '<td>' +<span class="label label-success">HOT</span> +'</td>'
+	  }
+          row += '</tr>';
+ 	  $('#table-fooAjax tbody').append(row);
+        });
+	$('#table-fooAjax').footable();
+	$('#table-fooAjax').footable().trigger('footable_initialize');
+	console.log('Load Table : table-fooAjax SUCCESS');
+     },
+     error : function(xhr, statusText, error) { 
+        alert("Error! Could not retrieve the data.");
+    }
+  })
+  console.log('Load Table : table-fooAjax DONE');
+}
+
+(function(){
+console.log('table-fooAjax 1');
+//	$('#table-fooAjax').footable();
+console.log('table-fooAjax 2');
+        loadFooTable();
+console.log('table-fooAjax 3');
+	$('#table-fooAjax').trigger('footable_initialize');
+console.log('table-fooAjax 4');
+	$('table-fooAjax').filter('[data-page="0"]').trigger('click');
+        console.log('table-fooAjax5');
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+  $('.footable').footable({
+    breakpoints: {
+    tiny: 100,
+    medium: 555,
+    big: 1024
+    }
+  });
+  $(function () {
+    $('#table-foo').footable();
+  });
+</script>
+
+<script type="text/javascript">
+// FooTable filter Custom function
+  $(function () {
+    $('#table-foo').footable().bind('footable_filtering', function (e) {
+      var selected = $('.filter-status').find(':selected').text();
+      if (selected && selected.length > 0) {
+        e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+        e.clear = !e.filter;
+      }
+    });
+
+    $('.clear-filter').click(function (e) {
+      e.preventDefault();
+      $('.filter-status').val('');
+      $('#table-foo').trigger('footable_clear_filter');
+    });
+
+    $('.filter-status').change(function (e) {
+      e.preventDefault();
+      $('#table-foo').trigger('footable_filter', {filter: $('#filterText').val()});
+    });
+    // DEMO for filter table by 'pig'
+    $('.filter-api').click(function (e) {
+      e.preventDefault();
+
+      //get the footable filter object
+      var footableFilter = $('#table-foo').data('footable-filter');
+
+      alert('about to filter table by "pig"');
+      //filter by 'pig'
+      footableFilter.filter('pig');
+
+      //clear the filter
+      if (confirm('clear filter now?')) {
+        footableFilter.clearFilter();
+      }
+    });
+  });
+
+</script>
+
+
+<script>
+  // Load DataTable
+  function loadTable(){
+    $.ajax({
+         url:"/demo/ptt/",
+         dataType:"json",
+         data:{format:'json'},
+         success:function(res){
+           var opt={
+              "oLanguage":{"sUrl":"dataTables.zh-tw.txt"},
+              "aoColumns":[
+			{"sTitle":"Index","sWidth":"20px","sClass":"editClass"},
+			{"sTitle":"看板名稱","sWidth":"70%","sType":"string"},
+			{"sTitle":"人氣","sWidth":"30%","sType":"numeric"}
+			], // 欄位名稱
+              "aaData": res, // 資料來源
+              "bLengthChange ":true,
+              "aLengthMenu":[[5, 30, 60, -1], [5, 30, 60, "All"]], // 顯示資料長度
+              "iDisplayLength":5,     // 預設長度
+              "bJQueryUI":false,
+              "sPaginationType":"full_numbers", // page使用數字攔
+           };
+           var oTable=$("#tablePtt").dataTable(opt);
+           oTable.$('tr').click(
+             function(){
+               var row=oTable.fnGetData(this); //取得 tr 內容, 傳回陣列
+               var url="https://www.ptt.cc/bbs/" + row[1]+"/index.html"; //PTT 看板 url
+               window.open(url); //開啟新視窗
+             }
+           );
+           $("#pttTest").button('complete')
+        }
+    })
+  }
+  (function(){
+	loadTable();
+  })();
+  </script>
+
+
+{% endblock %}

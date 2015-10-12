@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+    Logout
+{% endblock %}
+
+{% block content %}
+   {{ csrf_token }}
+  {% if user.is_authenticated %}
+    <p>Bye Bye, {{ user.username }}</p>
+  {% else %}
+    <p>Please Login</p>
+
+  {% endif %}
+
+
+{% endblock %}
+

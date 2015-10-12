@@ -1,0 +1,559 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}django-bootstrap3{% endblock %}
+
+{% block content %}
+<style>
+
+
+text {
+  text-anchor: middle;
+}
+
+#credit {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  color: #ddd;
+}
+
+#credit a {
+  color: #fff;
+  font-weight: bold;
+}
+
+</style>
+
+
+<div class="container-fluid">
+<!--
+  <div class="page-header">
+    <h1>Product Detail <small>Ajax and some metrics</small></h1>
+  </div>
+-->
+<!--
+  <div class="col-xs-12">
+    <h3> Product :{{id}}</h3>
+    <p> Name : {{name}}
+        Info : {{info}}	</p>
+  </div> 
+-->
+  <div class="row">
+    <div class="col-md-3 col-sm-6  col-xs-12">
+      <div  class="col-xs-12 col-md-12" style="background-color: #555555; color: #FFF; height:180px ;margin-bottom:20px;margin-top:20px;">
+	<h4>Information</h4>
+	<p><h5> Product :{{id}}</h5>
+             Name : {{name}}
+             Info : {{info}} 
+	</p>
+
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6  col-xs-12">
+      <div   class="col-xs-12 col-md-12" style="background-color: #555555; color: #FFF; height:180px ;margin-bottom:20px;margin-top:20px;"">
+	<h4> Events </h4> 
+	<p class="text-center">
+	  <a class="btn btn-danger " type="button"  style="width:90%"><b>Danger</b> <span class="badge">14</span>  </a>
+ 	  <a class="btn btn-warning " type="button" style="width:90%"><b>Warning</b> <span class="badge">24</span> </a>
+	  <a class="btn btn-success " type="button" style="width:90%"><b>Success</b> <span class="badge">4</span> </a>  
+        </p>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div   style="background-color: #555555; color: #FFF; height:180px ;margin-bottom:20px;margin-top:20px;""> 
+        <h4>Temp</h4>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12" >
+      <div  class="col-xs-12 col-md-12" style="background-color: #555555; color: #FFF; height:180px ;margin-bottom:20px;margin-top:20px;"">
+        <h4>Temp</h4>
+	<div id ="tempArc"></div>
+      </div>
+    </div>      
+  </div>
+
+  <div class="row">
+    <div  class="col-xs-12 col-md-12" >
+      <div class="col-xs-12 col-md-12" style="background-color: #555555; color: #FFF;  ;margin-bottom:20px"">
+        <div class="col-md-7 col-xs-12">
+	  <h4>Monitor<h4>
+	  <div  id="chartr1c1" style="height: 100px;"></div>
+          <h5 class="text-center animated fadeIn" id="desr1c1">&nbsp </h5>
+        </div>
+        <div class="col-md-5 col-xs-12" >
+	  <h4>Usage</h4>
+	  <div class="col-xs-3">CPU</div>
+	  <div class="col-xs-9"><div class="progress">
+            <div id="usagebar1" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+              <span id="usagetext1">40% Complete</span>
+            </div>
+          </div></div>
+          <div class="col-xs-3">RAM</div>
+          <div class="col-xs-9"> <div class="progress">
+            <div id="usagebar2" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width: 40%">
+              <span id="usagetext2">40% Complete (success)</span>
+            </div>
+          </div></div>
+          <div class="col-xs-3">DISK</div>
+          <div class="col-xs-9"><div class="progress">
+            <div id="usagebar3" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"  style="width: 40%">
+              <span id="usagetext3">40% Complete (success)</span>
+            </div>
+	  </div></div>
+          <div class="col-xs-3">NETWORK</div>
+          <div class="col-xs-9"><div class="progress">
+            <div id="usagebar4" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+              <span  id="usagetext4" style="color:block">40% Complete (success)</span>
+            </div>
+          </div></div>
+        </div>
+       
+      </div>
+    </div>
+  </div> <!-- END row2 -->
+
+  <div class="row">
+    <div  class="col-xs-6 col-md-6" >
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#mcinfo" aria-controls="home" role="tab" data-toggle="tab">Machine Info</a></li>
+        <li role="presentation"><a href="#sensor" aria-controls="profile" role="tab" data-toggle="tab">Sensor</a></li>
+        <li role="presentation"><a href="#network" aria-controls="messages" role="tab" data-toggle="tab">Network</a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="mcinfo">
+	  <!-- Star Table -->
+          <div class="col-xs-12">
+            <div style="float:left">
+              Search: <input id="filterMachineTab" type="text">
+            </div>
+          </div>
+          <!-- END FooTable Filter  -->
+          <div class="table col-xs-12">
+            <table class=" table toggle-arrow-tiny table-striped" data-filter=#filterTextAjax id="table-machine" data-page-size="20">
+              <thead>
+                <tr>
+                  <th data-toggle="true" data-sort-initial="true" data-type="numeric"  >Index</th>
+                  <th data-toggle="true"   >Item</th>
+                  <th data-hide="phone"  data-type="numeric" data-class="highlight">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot class="hide-if-no-paging">
+                <tr>
+                  <td colspan="5">
+                    <div class="paging">
+                      <ul class="pagination"></ul>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <!--End Table -->
+
+	</div>
+
+        <div role="tabpanel" class="tab-pane" id="sensor">
+	  <!-- Star Table -->
+	  <div class="col-xs-12">
+            <div style="float:left">
+              Search: <input id="filterTextAjax" type="text">
+            </div>
+          </div>
+	  <!-- END FooTable Filter  -->
+          <div class="table col-xs-12">
+            <table class=" table toggle-arrow-tiny table-striped" data-filter=#filterTextAjax id="table-fooAjax" data-page-size="20">
+              <thead>
+                <tr>
+                  <th data-toggle="true" data-sort-initial="true" data-type="numeric"  >Index</th>
+                  <th data-toggle="true"   >Item</th>
+                  <th data-hide="phone"  data-type="numeric" data-class="highlight">Value</th>
+                  <th data-hide="phone,tablet">Unit</th>
+                  <th data-hide="phone,tablet"">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot class="hide-if-no-paging">
+                <tr>
+                  <td colspan="5">
+                    <div class="paging">
+                      <ul class="pagination"></ul>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+	  <!--End Table -->
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="network">
+	  <!-- START TABLE 2 -->
+          <div class="col-xs-12">
+            <div style="float:left">
+              Search: <input id="filterTextAjax2" type="text">
+            </div>
+          </div>
+          <!-- END FooTable Filter  -->
+          <div class="table col-xs-12">
+            <table class=" table toggle-arrow-tiny table-striped" data-filter=#filterTextAjax2 id="table-fooAjax2" data-page-size="10">
+              <thead>
+                <tr>
+                  <th data-toggle="true" data-sort-initial="true" data-type="numeric"  >Index</th>
+                  <th data-toggle="true"   >Item</th>
+                  <th data-hide="phone"  data-type="numeric" data-class="highlight">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot class="hide-if-no-paging">
+                <tr>
+                  <td colspan="5">
+                    <div class="paging">
+                      <ul class="pagination"></ul>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+	  <!-- END Table 2-->
+	</div>
+      </div>
+    </div>
+
+    <div  class="col-xs-6 col-md-6" >
+	right 
+    </div>
+  </div>
+</div>
+<script>
+
+// AJAX & FOOTABLE1
+function loadFooTable(ip){
+  console.log('Load Table : table-fooAjax');
+  $.ajax({
+     url:"/machine/apiIpmi/?bmc="+ip+"&ipmi=sensor",
+     dataType:"json",
+     data:{format:'json'},
+     success:function(data){
+        $.each(data, function(index, item){
+          var row = '<tr>';
+	  row += '<td>' + index +'</td>';
+          row += '<td>' + item[0] +'</td>';
+          row += '<td>' + item[1] +'</td>';
+          row += '<td>' + item[2] +'</td>';
+          row += '<td>' + item[3] +'</td>';
+          row += '</tr>';
+          $('#table-fooAjax tbody').append(row);
+        });
+        $('#table-fooAjax').footable();
+        $('#table-fooAjax').footable().trigger('footable_initialize');
+        console.log('Load Table : table-fooAjax SUCCESS');
+     },
+     error : function(xhr, statusText, error) {
+        alert("Error! Could not retrieve the data.");
+    }
+  })
+  console.log('Load Table : table-fooAjax DONE');
+  $('#table-fooAjax').filter('Index').trigger('click');
+  $('#table-fooAjax').filter('[data-page="0"]').trigger('click');
+
+}
+
+function loadFooTable2(ip){
+  console.log('Load Table : table-fooAjax2');
+  $.ajax({
+     url:"/machine/apiIpmi/?bmc="+ip+"&ipmi=network",
+     dataType:"json",
+     data:{format:'json'},
+     success:function(data){
+        $.each(data, function(index, item){
+          var row = '<tr>';
+          row += '<td>' + index +'</td>';
+          row += '<td>' + item[0] +'</td>';
+
+	  row += '<td>';
+	  $.each(item[1],function(index ,value){
+	    row += value + '<br>';
+	  });
+	  row += '</td>';
+//          row += '<td>' + item[1] +'</td>';
+          row += '</tr>';
+          $('#table-fooAjax2 tbody').append(row);
+        });
+        $('#table-fooAjax2').footable();
+        $('#table-fooAjax2').footable().trigger('footable_initialize');
+        console.log('Load Table : table-fooAjax2 SUCCESS');
+     },
+     error : function(xhr, statusText, error) {
+        alert("Error! Could not retrieve the data.");
+    }
+  })
+  console.log('Load Table : table-fooAjax2 DONE');
+  $('#table-fooAjax2').filter('Index').trigger('click');
+  $('#table-fooAjax2').filter('[data-page="0"]').trigger('click');
+
+}
+
+
+function loadMachineTable(ip){
+  console.log('Load Table : table-machine');
+  $.ajax({
+     url:"/machine/apiIpmi/?bmc="+ip+"&ipmi=machine",
+     dataType:"json",
+     data:{format:'json'},
+     success:function(data){
+        $.each(data, function(index, item){
+          var row = '<tr>';
+          row += '<td>' + index +'</td>';
+          row += '<td>' + item[0] +'</td>';
+	  row += '<td>';
+          $.each(item[1],function(index ,value){
+            row += value + '<br>';
+          });
+          row += '</td>';
+//          row += '<td>' + item[1] +'</td>';
+          row += '</tr>';
+          $('#table-machine tbody').append(row);
+        });
+        $('#table-machine').footable();
+        $('#table-machine').footable().trigger('footable_initialize');
+        console.log('Load Table : table-machine SUCCESS');
+     },
+     error : function(xhr, statusText, error) {
+        alert("Error! Could not retrieve the data.");
+    }
+  })
+  console.log('Load Table : table-machine DONE');
+  $('#table-machine').filter('Index').trigger('click');
+  $('#table-machine').filter('[data-page="0"]').trigger('click');
+
+}
+function updateIpmiTableByAjax(ip){
+	
+	loadFooTable(ip);
+        loadFooTable2(ip);
+        loadMachineTable(ip);
+	$('#table-fooAjax').filter('Index').trigger('click');
+        $('#table-fooAjax2').filter('Index').trigger('click');
+        $('#table-machine').filter('Index').trigger('click');
+
+}
+
+(function(){
+	 ip = "10.3.211.114"
+	 updateIpmiTableByAjax(ip);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+  $('.footable').footable({
+    breakpoints: {
+    tiny: 100,
+    medium: 555,
+    big: 1024
+    }
+  });
+//  $(function () {
+  //  $('#table-foo').footable();
+//  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Line chart 
+var rrdChart = Morris.Line({
+  resize: true,
+  element: 'chartr1c1',
+  data: [
+    { time: '2008', value: 20 ,label:"aaa"},
+    { time: '2009', value: 10 ,label:"bbb"},
+    { time: '2010', value: 5 ,label:"ccc"},
+    { time: '2011', value: 5 ,label:"ddd"},
+    { time: '2012', value: 20 ,label:"eee"}
+  ],
+  xkey: 'time',
+  ykeys: ['value'],
+  labels: ['Value'],
+  lineColors: ['#54cdb4','#1ab394'],
+  gridTextSize:8,
+  lineWidth:3,
+  stacked: true,
+  pointSize:3,
+  grid:false,
+  axes:false,
+  hoverCallback: function(index, options, content) {
+    var data = options.data[index];
+    document.getElementById("desr1c1").innerHTML= data.time + ' : ' + data.value ;
+    $(".morris-hover").html('<div>Custom label: ' + data.label + '</div>').css(display='block');
+  }
+});
+
+// fadeIn fadeOut 
+function noteAnimat(targetID,inOrOut){
+  if(inOrOut == 0 ){
+     $("#"+targetID).removeClass('fadeIn');
+     $("#"+targetID).addClass('fadeOut');
+  }else if(inOrOut == 1){
+     $("#"+targetID).removeClass('fadeOut');
+     $("#"+targetID).addClass('fadeIn');
+  }
+}
+
+// set idle timer
+$(function() {
+    // Set IDLE  timer
+    $( document ).idleTimer( 5000 );
+    $("#chartr1c1").idleTimer( 3000 );
+});
+
+// line chart hover action
+$(function() {
+    $("#chartr1c1").on( "idle.idleTimer", function(event, elem, obj){                noteAnimat("desr1c1",0);    });
+    $("#chartr1c1").on("active.idleTimer",function(event, elem, obj, triggerevent){  noteAnimat("desr1c1",1);    });
+
+});
+
+// line chart set data
+$(function() {
+    $.ajax({
+      dataType:"json",
+      data:{format:'json'},
+      url: "/rrd/fatch", // This is the URL to the API
+        success:function(res){
+          rrdChart.setData(res);
+        }
+    })
+  });
+
+</script>
+
+<script>
+// for gauge (d3.js)
+  var myData = [['CPU1',44.26],['CPU2',37.48],['RAM',40.01],['DISK',39.84]];
+  var div_data_bind = d3.select("#myGauge").selectAll("#myGauge")
+		.data(myData)
+	        .enter().append("div")
+		.text(function(d,i) {    return i + " / " + d[0] + " / " + d[1];  })
+		.style("height", "20px")
+ 		.style("background", "red")
+		.style("margin", "5px")
+		.style("width", function(d,i) {    return (d[1] * 3)+"px";  });
+</script>
+<script>
+
+var width = 300,
+    height = 140,
+    radius = Math.min(width, height)*0.75 ,
+    spacing = .09;
+
+var color = d3.scale.linear()
+    .range(["hsl(100,80%,60%)", "hsl(-30,80%,70%)"])//    .range(["hsl(-180,50%,50%)", "hsl(180,50%,50%)"])
+    .interpolate(interpolateHsl);
+
+var arc = d3.svg.arc()
+    .startAngle(0)
+    .endAngle(function(d) { return d.value * 2 * Math.PI; })
+    .innerRadius(function(d) { return d.index * radius; })
+    .outerRadius(function(d) { return (d.index + spacing) * radius; });
+
+var svg = d3.select("#tempArc").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", "translate(" + (width / 2 + 10) + "," + (height / 2 - 10) + ")");
+
+var field = svg.selectAll("g")
+    .data(fields)
+  .enter().append("g");
+
+field.append("path");
+
+field.append("text");
+
+d3.transition().duration(0).each(tick);
+ 
+
+d3.select(self.frameElement).style("height", height + "px");
+
+function tick() {
+  field = field
+      .each(function(d) { this._value = d.value; })
+      .data(fields)
+      .each(function(d) { d.previousValue = this._value; });
+
+  field.select("path")
+    .transition()
+      .ease("elastic")
+      .attrTween("d", arcTween)
+      .style("fill", function(d) { return color(d.value); });
+
+  field.select("text")
+      //.attr("dy", function(d) { return d.value < .5 ? "-.5em" : "1em"; })
+      .text(function(d) { return d.text; })
+    .transition()
+      .ease("elastic")
+      .style("fill", "#FFFFFF")
+  .style("font-size", "10px")
+      .attr("transform", function(d) {
+        return "translate("+-(width/2)*0.7+"," + -(d.index + spacing / 2)* radius  + ")"         
+      })
+}
+  
+function arcTween(d) {
+  var i = d3.interpolateNumber(d.previousValue, d.value);
+  return function(t) { d.value = i(t); return arc(d); };
+}
+
+function ajaxTemp(){
+    return{'1':312,'2':222,'3':99,'4':355}
+}
+
+function fields() {
+  var ajaxData = ajaxTemp();
+  return [
+      {index: .1, text: '4. CPU1 : '+Math.ceil(ajaxData['1']/360*100)+"%", value: ajaxData['1']/360},
+      {index: .2, text: '3. CPU2 : '+Math.ceil(ajaxData['2']/360*100)+"%",  value: ajaxData['2']/360},
+      {index: .3, text: '2. RAM  : '+Math.ceil(ajaxData['3']/360*100)+"%",  value: ajaxData['3']/360},
+      {index: .4, text: '1. DISK : '+Math.ceil(ajaxData['4']/360*100)+"%", value: ajaxData['4']/360}
+  ];
+}
+
+// Avoid shortest-path interpolation.
+function interpolateHsl(a, b) {
+  var i = d3.interpolateString(a, b);
+  return function(t) {
+    return d3.hsl(i(t));
+  };
+}
+
+</script>
+
+
+
+{% endblock %}

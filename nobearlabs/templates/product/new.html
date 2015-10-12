@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}django-bootstrap3{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+  <div class="page-header">
+    <h1>Product inset <small>Ajax and some metrics</small></h1>
+  </div>
+<form role="form" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group bootstrap3-req">
+        <label class="col-md-3 control-label" for="id_productname">Product Name</label>
+        <div class="col-md-9">
+          <input class="form-control" id="id_productname" maxlength="100" name="productname" placeholder="Product Name" required="required" title="Product is required" type="text">
+          <span class="help-block">Product is required</span>
+        </div>
+      </div>
+      <div class="form-group bootstrap3-req">
+        <label class="col-md-3 control-label" for="id_productid">Product ID</label>
+        <div class="col-md-9">
+          <input class="form-control" id="id_productid" maxlength="100" name="productid" placeholder="Product ID" required="required" title="&amp;nbsp" type="text">
+          <span class="help-block">&nbsp;</span>
+        </div>
+      </div>
+      <div class="form-group bootstrap3-req">
+        <label class="col-md-3 control-label" for="id_bu">Business Unit</label>
+        <div class="col-md-9">
+          <select class="form-control" id="id_bu" name="bu" required="required" title="&amp;nbsp">
+            <option value="ebg">EBG</option>
+            <option value="ebg_bu1">EBG BU 1</option>
+            <option value="ebg_bu2">EBG BU 2</option>
+            <option value="ebg_bu3">EBG BU 3</option>
+            <option value="ebg_bu5">EBG BU 5</option>
+            <option value="ebg_bu6">EBG BU 6</option>
+            <option value="ebg_pc">EBG PRODUCT CENTER</option>
+            <option value="ebg_nidc">EBG NIDC</option>
+          </select>
+          <span class="help-block">&nbsp;</span>
+        </div>
+      </div>
+      <div class="form-group bootstrap3-req">
+        <label class="col-md-3 control-label" for="id_status">Status</label>
+        <div class="col-md-9">
+          <select class="form-control" id="id_status" name="status" required="required" title="&amp;nbsp">
+            <option value="ready">READY</option>
+            <option value="stop">STOP</option>
+          </select>
+          <span class="help-block">&nbsp;</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="id_producttype_0">Product Type</label>
+          <div class="col-md-9">
+            <div id="id_producttype">
+              <div class="col-md-6">
+                <div class="checkbox">Enterprise
+                <div id="id_producttype_0">
+                  <div class="checkbox"> <label for="id_producttype_0_0">
+                        <input class="" id="id_producttype_0_0" name="producttype" title="Check your product types" type="checkbox" value="network">
+                         Network
+                  </label> </div>
+                  <div class="checkbox"><label for="id_producttype_0_1">
+                        <input class="" id="id_producttype_0_1" name="producttype" title="Check your product types" type="checkbox" value="server">
+                         Server
+                  </label></div>
+                  <div class="checkbox"><label for="id_producttype_0_2">
+                        <input class="" id="id_producttype_0_2" name="producttype" title="Check your product types" type="checkbox" value="storage">
+                         Storage
+                  </label></div>
+                  <div class="checkbox"><label for="id_producttype_0_3">
+                        <input class="" id="id_producttype_0_3" name="producttype" title="Check your product types" type="checkbox" value="rack">
+                         Rack
+                  </label></div>
+                  <div class="checkbox"><label for="id_producttype_0_4">
+                        <input class="" id="id_producttype_0_4" name="producttype" title="Check your product types" type="checkbox" value="eother">
+                        Enterprise Other
+                  </label></div>
+                </div></div>
+              </div>
+              <div class="col-md-6">
+                <div class="checkbox">Personal
+                <div id="id_producttype_1">
+                  <div class="checkbox"><label for="id_producttype_1_0">
+                        <input class="" id="id_producttype_1_0" name="producttype" title="Check your product types" type="checkbox" value="pc">
+                        Personal Computer
+                  </label></div>
+                  <div class="checkbox"><label for="id_producttype_1_1">
+                        <input class="" id="id_producttype_1_1" name="producttype" title="Check your product types" type="checkbox" value="nb">
+                        Notebook
+                  </label></div>
+                  <div class="checkbox"><label for="id_producttype_1_2">
+                        <input class="" id="id_producttype_1_2" name="producttype" title="Check your product types" type="checkbox" value="pad">
+                        PAD
+                  </label></div>
+                  <div class="checkbox"><label for="id_producttype_1_3">
+                        <input class="" id="id_producttype_1_3" name="producttype" title="Check your product types" type="checkbox" value="phone">
+                        Phone
+                  </label></div>
+                  <div class="checkbox"><label for="id_producttype_1_4">
+                        <input class="" id="id_producttype_1_4" name="producttype" title="Check your product types" type="checkbox" value="wear">
+                        Wearable Computer
+                  </label></div>
+                  <div class="checkbox"><label for="id_producttype_1_5">
+                        <input class="" id="id_producttype_1_5" name="producttype" title="Check your product types" type="checkbox" value="pother">
+                        Personal Other
+                  </label></div>
+                </div></div>
+                 <div class="checkbox"><label for="id_producttype_2">
+                        <input class="" id="id_producttype_2" name="producttype" title="Check your product types" type="checkbox" value="unknown">
+                        Unknown
+                  </label></div>
+                </div>
+              </div>
+              <span class="help-block">Check your product types</span>
+      </div></div>
+      <div class="form-group"><label class="col-md-3 control-label" for="id_pics">Product Pictures</label>
+        <div class="col-md-9">
+          <input class="" id="id_pics" multiple="multiple" name="pics" title="Please upload picture (max 5 file)" type="file">
+          <span class="help-block">Please upload picture (max 5 file)</span>
+        </div>
+      </div>
+      <div class="form-group"><label class="col-md-3 control-label" for="id_specs">Product Specs</label>
+        <div class="col-md-9">
+          <input class="" id="id_specs" multiple="multiple" name="specs" title="Please upload specs (max 3 file)" type="file">
+          <span class="help-block">Please upload specs (max 3 file)</span>
+        </div>
+      </div>
+      <div class="col-xs-12 ">
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit">OK</button>
+          <button class="btn" type="reset">Cancel</button>
+        </div>
+      </div>
+    </form>
+    </div>
+
+<!-- END  -->
+</div>
+{% else%}
+<h1>Please Login</h1>
+{% endif %}
+{% endblock %}

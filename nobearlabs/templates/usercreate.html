@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+    Forms
+{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <p>Welcome, </p>
+<p>
+id	{{user.id}}
+password	{{user.password}}
+last_login	{{user.last_login}}
+is_superuser        {{user.is_superuser}}
+email	{{user.email}}
+mobile_number        {{user.mobile_number}}
+zip_code	{{user.zip_code}}
+home_address	{{user.home_address}}
+bank_id_first	{{user.bank_id_first}}
+bank_id_last	{{user.bank_id_last}}
+is_staff	{{user.is_staff}}
+is_active	{{user.is_active}}
+date_joined {{user.date_joined}}
+
+</p>
+  {% else %}
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default login-panel">
+      <div class="panel-heading"> 
+	<h3 class="panel-title">Sign up</h3>
+      </div>
+      <div class="panel-body">
+        <form id="userCreateForm"  role="form" method="post" >
+	{% csrf_token %}
+
+<div class="form-group bootstrap3-required">
+<label class="col-xs-3 control-label" for="id_username">USERNAME</label>
+<input class="form-control" id="id_username"  name="username" placeholder="USERNAME" required="required" title="" type="string"></div>
+
+
+<div class="form-group bootstrap3-required">
+<label class="col-xs-3 control-label" for="id_email">電子信箱</label>
+<input class="form-control" id="id_email" maxlength="254" name="email" placeholder="電子信箱" required="required" title="" type="email"></div>
+
+<div class="form-group bootstrap3-required " >
+<label class="col-xs-3 control-label" for="id_password1">密碼</label>
+<input class="form-control" id="id_password1" name="password1" placeholder="密碼" required="required"  title="" type="password"></div>
+
+<div class="form-group bootstrap3-required has-error" id="p2">
+<label class="col-xs-3 control-label" for="id_password2">密碼確認</label>
+<input class="form-control" id="id_password2" name="password2" placeholder="密碼確認" required="required" title="" type="password" data-match="#id_password1" data-match-error="Whoops, these don't match"></div>
+<div class="col-sm-12">
+<span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords Match
+</div>
+
+
+<div class="form-group">
+<button class="btn btn-primary" role="button" id="submit" type="submit">OK</button> <button class="btn" type="reset">Cancel</button></div>
+        </form>	  
+      </div>
+    </div>
+  </div>
+
+<script>
+$("input[type=password]").keyup(function(){
+        var ucase = new RegExp("[A-Z]+");
+	var lcase = new RegExp("[a-z]+");
+	var num = new RegExp("[0-9]+");
+	
+	if($("#id_password1").val() == $("#id_password2").val()){  
+		$("#pwmatch").removeClass("glyphicon-remove");
+		$("#pwmatch").addClass("glyphicon-ok");
+		$("#pwmatch").css("color","#00A41E");
+		$("#p2").removeClass("has-error");
+		$("#p2").addClass("has-success");
+		$("#submit").prop('disabled', false);
+	}else{
+		$("#pwmatch").removeClass("glyphicon-ok");
+		$("#pwmatch").addClass("glyphicon-remove");
+		$("#pwmatch").css("color","#FF0004");
+		$("#p2").removeClass("has-success");
+		$("#p2").addClass("has-error");
+		$("#submit").prop('disabled', true);
+	}
+});
+</script>
+  {% endif %}
+
+{% endblock %}
+
+{% block footer%}
+{% endblock %}

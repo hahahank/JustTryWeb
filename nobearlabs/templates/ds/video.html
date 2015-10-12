@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}django-bootstrap3{% endblock %}
+{% block navi %}
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="row" >
+<div id="v1" class="">
+  <video id="video1"  preload="auto"  poster="" src=""   class="dsvideo"></video>
+</div>
+<div id="v2"  style="display:none" class="">
+  <video id="video2"  preload="auto"  poster="" src=""   class="dsvideo"></video>
+</div>
+<div id="v3"  style="display:none" class="">
+  <video id="video3"  preload="auto"  poster="" src=""   class="dsvideo"></video>
+</div>
+<div id="v4"  style="display:none" class="">
+  <video id="video4"  preload="auto"  poster="" src=""   class="dsvideo"></video>
+</div>
+<div id="v5"  style="display:none" class="">
+  <video id="video5"  preload="auto"  poster="" src=""   class="dsvideo"></video>
+</div>
+</div>
+
+<script type="text/javascript">
+  var pl = [];
+  document.body.style.background = "black";
+  function ajaxGetVdo(){
+  // Get Product and create all Product BOX (must execut just 1 time)
+    $.ajax({
+      url:"/ds/get/" ,
+      dataType : "json",
+      data:{format:'json'},
+      success: function(data)
+      {
+
+        console.log("OK");
+        $.each(data, function(index, item)
+        {
+            $.each(item,function(index ,value)
+            {
+   	         pl[index]="{{STATIC_URL}}/media/video/"+value[0];
+		 console.log("OK", pl[index]);
+            })
+	})
+	dsStart();
+      }
+    })
+  }
+
+	//  var pl =[ "{{STATIC_URL}}/media/video/ex1.mp4", "{{STATIC_URL}}/media/video/ex2.mp4", "{{STATIC_URL}}/media/video/ex3.mp4","{{STATIC_URL}}/media/video/mycar2.mp4", "{{STATIC_URL}}/media/video/ex2.mp4", "{{STATIC_URL}}/media/video/ex3.mp4"];
+  var playid = 0;
+  // Init video
+  ajaxGetVdo();
+
+  function dsStart() 
+  {
+
+    console.log("1");
+    var vdoa = document.getElementById("video1");
+    var vdob = document.getElementById("video2");
+    var vdoc = document.getElementById("video3");
+    var vdod = document.getElementById("video4");
+    var vdoe = document.getElementById("video5");
+
+    function init()
+    {
+      console.log("init",playid);
+      $("#video1").attr({  "src": pl[playid],      })
+      vdoa.load();
+      vdoa.play();
+      playid = (playid+1)%pl.length;
+      $("#video2").attr({  "src": pl[playid],      })
+      playid = (playid+1)%pl.length;
+      $("#video3").attr({  "src": pl[playid],      })
+      playid = (playid+1)%pl.length;
+      $("#video4").attr({  "src": pl[playid],      })
+      playid = (playid+1)%pl.length;
+      $("#video5").attr({  "src": pl[playid],      })
+      console.log("init end");
+    }
+    console.log("2",playid);
+
+    vdoa.addEventListener('ended', function () {vdoEnd(1)} , false);
+    vdob.addEventListener('ended', function () {vdoEnd(2)} , false);
+    vdoc.addEventListener('ended', function () {vdoEnd(3)} , false);
+    vdod.addEventListener('ended', function () {vdoEnd(4)} , false);
+    vdoe.addEventListener('ended', function () {vdoEnd(5)} , false);
+    console.log("3");
+
+    vdoa.addEventListener('playing', function () {   vdoPlaying(1)} , false);
+    vdob.addEventListener('playing', function () {   vdoPlaying(2)} , false);
+    vdoc.addEventListener('playing', function () {   vdoPlaying(3)} , false);
+    vdod.addEventListener('playing', function () {   vdoPlaying(4)} , false);
+    vdoe.addEventListener('playing', function () {   vdoPlaying(5)} , false);
+
+    console.log("4");
+
+    init();
+    console.log("5");
+
+    function vdoPlaying(id) 
+    {
+	 console.log("playing : #video"+id);
+	 console.log("Playing " +  document.getElementById("video"+id).src + ", for: " + document.getElementById("video"+id).duration + "seconds.");
+    }
+
+    function vdoEnd(id) 
+    {
+	var nextID = 0;
+	console.log("vdoEnd #video"+id);
+        playid = (playid+1)%pl.length;
+//	var tmp = document.getElementById("video"+id);
+        $("#video"+id).attr({   // $("#videoa").attr({
+            "src": pl[playid],
+            "poster": "",
+        })
+	if( id >= 5){
+	    nextID  = 1; 
+	}
+	else{
+	    nextID = id +1;
+	}
+
+        document.getElementById("video"+id).pause();
+        document.getElementById("video"+id).load();
+        document.getElementById("video"+nextID).play();
+        document.getElementById("v"+id).style.display="none";
+        document.getElementById("v"+nextID).style.display="block"
+    }
+  }
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+{% block footer %}
+{% endblock %}
+
+{% endblock %}

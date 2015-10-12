@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}django-bootstrap3{% endblock %}
+
+{% block content %}
+
+<div class="row">
+<div class="container">
+  <div class="page-header">
+    <h1>Product Infomation <small> product: {{name}}</small></h1>
+    <ol class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li><a href="/product/main">Product</a></li>
+      <li class="active">{{name}}</li>
+    </ol>
+  </div>
+  <div class="col-xs-12">
+    <h3> Product :{{id}}</h3>
+    <p> Name : {{name}}<br>
+        BU : {{bu}}	<br>
+	types : {{type}}<br>
+	status : {{status}}<br>
+	pic : {{pic}}<br>
+	doc : {{doc}}<br>
+   </p>
+  </div> 
+
+  <div class="col-xs-12">
+    {% for pp in pic %}
+    <img  alt="Inventec" src="{{STATIC_URL}}/media/{{pp}}" style="height:300px"> 
+    {% endfor %}
+  </div>
+{% if perms.change_usersocialauth %}
+  <div class="col-xs-12">
+     <a role="button" href="/product/update?id={{id}}" class="btn btn-primary">update</a>
+     <a role="button" href="/product/delete?id={{id}}&name={{user.username}}" class="btn btn-danger">delete</a>
+  </div>
+{% endif %}
+</div>
+</div>
+
+{% endblock %}

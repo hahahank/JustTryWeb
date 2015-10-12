@@ -1,0 +1,186 @@
+
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}django-bootstrap3{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <h1>Product Main <small>All product List</small></h1>
+    <ol class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li><a href="/product/main">Product</a></li>
+      <li class="active">Main</li>
+    </ol>
+  </div> <!-- END Header -->
+nano  <div class="row">
+    <div class="col-md-3">
+      <div class="panel-group" id="accordion">
+	{% for otype in order%}
+	{% for t,v  in types.items %}
+	{% if t == otype %}
+        <div class="panel {% cycle 'panel-info' 'panel-success' 'panel-warning' 'panel-danger' %}">
+          <div class="panel-heading" >
+	    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{t}}" style="text-decoration: none">
+            <h5 class="panel-title">
+                    <span class="glyphicon {% cycle 'glyphicon-cloud' 'glyphicon-hdd' 'glyphicon-random' 'glyphicon-align-justify' 'glyphicon-flash' %} "></span> 
+		    <span>{{t|upper}}</span>
+            </h5></a>
+          </div>
+         <div id="collapse{{t}}" class="panel-collapse collapse ">
+             <div class="panel-body">
+               <table class="table table-condensed table-hover">
+		{% for pid,pinfo  in v.items %}
+		<tr><td>
+		  <a href="/product/detail?id={{pinfo.id}}" style="text-decoration: none">
+		    {% if pinfo.status  == 'ready' %}
+		    <span class="glyphicon glyphicon-ok"></span>
+		    {% else %}
+	 	    <span class="glyphicon glyphicon-remove"></span><del>
+                    {% endif %}
+		    
+		    {{pinfo.name}}			
+
+                    {% if pinfo.status  == 'ready' %}
+		    {% else %}
+		    </del>
+   	 	    <span class="label label-danger">Stop</span>
+                    {% endif %}
+		  </a>
+		</td></tr>
+	        {% endfor %}
+              </table>
+            </div>
+          </div>
+	</div>
+	{% endif %}
+	{% endfor %}
+	{% endfor %}
+      </div>
+    </div> 
+    <div class="col-md-9">
+      {% for t,v  in types.items %}	
+      <div id="{{t}}Page" class="hide">
+	<h2 class="text-center"> {{t|upper}} </h2>
+        {% for pid,pinfo  in v.items %}
+	<div class="col-md-4">
+	  <div class="product-boxx">
+            <div class="product-up">
+              {% if pinfo.pic %}
+              <img src="{{STATIC_URL}}/media/{{pinfo.pic.0}}" alt="{{pinfo.name}}" class="img-rounded img-responsive">
+              {% else %}
+              <img src="{{STATIC_URL}}/media/productWithNoPic.png" alt="{{pinfo.name}}" class="img-rounded img-responsive">
+              {% endif %}
+	    </div>
+            <div class="product-down">	      
+              <h4>ID : {{pinfo.id}} </h4>
+              <p><b>Name :</b> {{pinfo.name}}<br>
+              <b>Status :</b> {{pinfo.status}}<br>
+              <b>Type :</b> {% for mt in pinfo.type %}{{mt}}, {% endfor %}</p>
+	      <a role="button" href="/product/detail?id={{pid}}" class="btn btn-primary btn-xs">Info </a>
+            </div>
+	  </div>
+	</div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+      <div id="defaultPage" >
+        <h2 class="text-center"> All Product</h2>
+        {% for pid,pinfo  in all.items %}
+        <div class="col-md-4 ">
+          <div class="product-boxx">
+	    <div class="product-up">
+	      {% if pinfo.pic %}
+ 	      <img src="{{STATIC_URL}}/media/{{pinfo.pic.0}}" alt="{{pinfo.name}}" class="img-rounded img-responsive">   	   
+	      {% else %}
+	      <img src="{{STATIC_URL}}/media/productWithNoPic.png" alt="{{pinfo.name}}" class="img-rounded img-responsive">
+	      {% endif %}
+	    </div>
+	    <div class="product-down">
+  	      <h4>ID : {{pinfo.id}} </h4>
+              <p><b>Name :</b> {{pinfo.name}}<br>
+              <b>Status :</b> {{pinfo.status}}<br>
+              <b>Type :</b> {% for mt in pinfo.type %}{{mt}}, {% endfor %}</p>
+	      <a role="button" href="/product/detail?id={{pid}}" class="btn btn-primary btn-xs">Info</a>
+	    </div>
+	  </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+{% if perms.change_usersocialauth %}
+  <div class="row">
+    <h3>Control Page</h3>
+    <p>Must Login as Root(TODO) </p>
+    <div class="col-md-4">
+      <a role="button" href="/product/insert" class="btn btn-info">New</a>
+    </div>
+  </div>
+{% endif %}
+
+</div>
+
+<script>
+var now="";
+function hideMeShowDef(me){
+  now = me;
+//  alert('Hide '+me+',show def');
+//  $('#'+me).removeClass();
+ // $('#'+me).addClass('hide');
+//  $('#defaultPage').removeClass();
+//  $('#defaultPage').addClass('fadeDownBig');
+}
+function hideDefShowme(me){
+// alert('hide Def , show '+me);
+  $('#defaultPage').removeClass();
+  $('#defaultPage').addClass('hide');
+  $('#'+now).removeClass();
+  $('#'+now).addClass('hide');
+  $('#'+me).removeClass();
+  $('#'+me).addClass('fadeDownBig');
+}
+
+
+$('#collapseserver').on('shown.bs.collapse', function () {
+  hideDefShowme('serverPage');
+})
+$('#collapseserver').on('hide.bs.collapse', function () {
+  hideMeShowDef('serverPage');
+})
+
+$('#collapsestorage').on('shown.bs.collapse', function () {
+  hideDefShowme('storagePage');
+})
+$('#collapsestorage').on('hide.bs.collapse', function () {
+  hideMeShowDef('storagePage');
+})
+
+$('#collapsenetwork').on('shown.bs.collapse', function () {
+  hideDefShowme('networkPage');
+})
+$('#collapsenetwork').on('hide.bs.collapse', function () {
+  hideMeShowDef('networkPage');
+})
+
+$('#collapserack').on('shown.bs.collapse', function () {
+  hideDefShowme('rackPage');
+})
+$('#collapserack').on('hide.bs.collapse', function () {
+  hideMeShowDef('rackPage');
+})
+
+$('#collapseeother').on('shown.bs.collapse', function () {
+  hideDefShowme('eotherPage');
+})
+$('#collapseeother').on('hide.bs.collapse', function () {
+  hideMeShowDef('eotherPage');
+})
+
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+
+
+COMMAND:{"sensor":"sdr","network":"lan print","machine":"mc info"}
+class MachineManager():
+    machineList = {}
+    def __init__(self,):
+	pass
+
+    def updateSensor(self,bmc,data):
+        self.machineList[bmc]["sensor"] = data
+
+    def updateIpmi(self,data):
+#	print "MManager update ipmi ", data
+	print "BMC : ",data.get("BMC")[0],""
+	for k in COMMAND.keys():
+	    if k not in data
+		p:
+		return False
+	if self.machineList.get(data.get("BMC")==None):
+	    self.machineList[data.get("BMC")] = {}
+	self.updateSensor(data.get("BMC"),data.get("sensor"))
+	for k , v in data.items():
+	    if(k!="BMC"):
+	        print "Key :",k
+	        print "Value :",v,"\n\n"
+	return True

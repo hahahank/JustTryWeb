@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}django-bootstrap3{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+  <div class="page-header">
+    <h1>Product inset <small>Ajax and some metrics</small></h1>
+  </div>
+  <!-- End Header -->
+  <div class="col-xs-12 ">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Create New Product</h3>
+      </div>
+      <div class="panel-body">
+        <form role="form" method="post"  enctype="multipart/form-data" >
+          {% csrf_token %}
+          {% bootstrap_form form  layout="horizontal" %}
+	  <div class="col-xs-12 ">
+	  {% buttons submit='OK' reset="Cancel" %}{% endbuttons %}
+	  </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<!-- END  -->
+</div>
+{% else %}
+<h1>Please Login </h1>
+{%  endif %}
+{% endblock %}

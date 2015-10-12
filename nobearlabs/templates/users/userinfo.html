@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block content %}
+<div class="container">
+{% if user.is_authenticated %}
+<div class="col-xs-6 ">
+<h3>Welcome, </h3>
+<p>id      {{user.id}}</p>
+<p>name    {{user.username}}</p>
+<p>last_login      {{user.last_login}}</p>
+<p>is_superuser        {{user.is_superuser}}</p>
+<p>email   {{user.email}}</p>
+<p>mobile_number        {{user.mobile_number}}</p>
+<p>home_address    {{user.home_address}}</p>
+<p>date_joined {{user.date_joined}}</p>
+====
+<p>{% if perms.change_site %} You Can change site 
+   {% else %}	You Have no Perms!
+   {% endif %}</p>
+<p>{% if perms.change_usersocialauth %} change_usersocialauth {% endif %}</p>
+</div>
+{%endif%}
+</div>
+{% endblock %}

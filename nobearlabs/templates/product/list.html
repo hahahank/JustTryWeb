@@ -1,0 +1,362 @@
+
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}django-bootstrap3{% endblock %}
+
+{% block content %}
+<style>
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: #FFFFFF;
+        background-color: rgba(0%, 0%, 0%, 0.1);
+    }
+
+    .nav-pills > li.active > a:hover {
+        background-color: rgba(100%, 100%,100%, 0.5);
+        color:black;
+    }
+
+    .nav-pills > li > a {
+        color: rgba(0%, 0%, 0%, 0.4);
+        background-color: rgba(0%, 0%, 0%, 0.0);
+	color:#FFaaaa;
+    }
+
+    .nav-pills > li > a:hover {
+        background-color: rgba(10%, 40%, 40%, 0.2);
+        color:#FFFFFF;
+
+</style>
+<div class="row" style="background-color:#FFFaaa">
+<div class="container">
+<ul class="nav nav-pills  nav-justified productnav">
+  <li id="nav_default" role="presentation" onclick="getType(this.value)" value="1" class="active"><a>All</a></li>
+  <li id="nav_server"role="presentation" onclick="getType(this.value)" value="2"><a><span class="glyphicon glyphicon-cloud "></span>  Server</a></li>
+  <li id="nav_storage" role="presentation" onclick="getType(this.value)" value="3"><a><span class="glyphicon glyphicon-hdd "></span>  Storage</a></li>
+  <li id="nav_network" role="presentation" onclick="getType(this.value)" value="4"><a><span class="glyphicon glyphicon-random "></span>  Network</a></li>
+  <li id="nav_rack" role="presentation" onclick="getType(this.value)" value="5"><a><span class="glyphicon glyphicon-align-justify "></span>  Rack</a></li>
+  <li id="nav_eother" role="presentation" onclick="getType(this.value)" value="6"><a><span class="glyphicon glyphicon-flash "></span>  Other</a></li>
+</ul>
+</div>
+
+
+
+</div> 
+
+
+<div class="container">
+  <div class="row">
+      <!--Default Page  -->
+      <div id="defaultPage" >
+	  <div class="row">
+
+	    <label>Show 
+	    <select name="defPro_length" id="defPro_length" class="">
+	      <option value="4">4</option>
+	      <option value="8">8</option>
+	      <option value="16">16</option>
+	      <option value="-1">All</option>
+  	    </select> entries
+	    </label>
+	   <div class="row" id="mydefPage"></div>
+	   <div class="row">
+  	    <nav id="pageList" >
+	      <ul id="pageItems" class="pagination">
+	        <li  onclick="getPaging(this.value)" id="pagePre" value="-1"><a><span aria-hidden="true">&laquo;</span></a></li>
+		<li class="active" onclick="getPaging(this.value)" id="page1" value="1"><a>1</a></li>
+  	      </ul>
+  	    </nav>
+	  </div>
+      
+        </div>
+      </div>
+
+<script>
+var proList=[];
+var totalPage=0;
+var showType='default';
+var currentPage=1;
+
+function getType(value)
+{
+    $("#nav_"+showType).removeClass();
+    currentPage=1;
+    if(value == 1 ){
+	showType = 'default';
+    }		// all
+    else if(value == 2){
+        showType = 'server';
+    }	// server
+    else if(value == 3){
+        showType = 'storage';
+    }	// storage
+    else if(value == 4){
+        showType = 'network';
+    }	// network
+    else if(value == 5){
+        showType = 'rack';
+    }	// rack
+    else if(value == 6){
+        showType = 'eother';
+    }	// other
+    else {
+        console.log('Type Not Found');
+    }			//ERROR
+    updateShowList(showType, $("#defPro_length").val(),currentPage);
+    updatePageList($("#defPro_length").val(),currentPage);
+    getPaging(currentPage);
+
+    $("#nav_"+showType).addClass('active');
+}
+
+
+
+
+function getPaging(value)	//
+{
+    console.log('page:',value);
+    if(value == -1 )// pre
+    {
+	if(currentPage == 1){return false}
+	value = currentPage -1;
+    }
+    if(value == -2) // next
+    {
+	if(currentPage >= totalPage ){return false}
+	value = currentPage +1;
+    }
+    
+//    updateShowList(showType, $("#defPro_length").val(),value);
+    for(var i = totalPage; i>=0;i--)
+    {
+       $("#page"+i).removeClass();
+    }
+//    $("#page"+currentPage).removeClass();
+    $("#page"+value).addClass('active');
+    currentPage = value;
+    $('body,html').animate({scrollTop:0},50);
+}
+
+function updatePageList(pageEntrys,pageNum)
+{
+    var page = 0;
+    if(showType == 'default')    
+    {   
+        page = Math.ceil(proList.length/pageEntrys);
+    }
+    else
+    {   
+        var c = 0;
+        for(var i = proList.length-1; i > 0 ; i--)
+	{
+                if( proList[i]['type'].indexOf(showType, 0) != -1) { c++; console.log(proList[i]['type'].indexOf(showType, 0),proList[i]['type']);}
+        }
+        page = Math.ceil(c/pageEntrys); 
+    }
+    var prow = '';
+    if(totalPage == 0)		// no page before
+    {
+	for(var i = page ;i > 1; i--)
+    	{
+		 prow += '<li  onclick="getPaging(this.value)" id="page'+ i +'" value="'+ i +'"><a herf="#">'+ i +'</a></li>';
+	}
+	$("#page1").append(prow);
+
+    }
+    else if(page > totalPage)	// need more page item
+    {
+	for(var i = totalPage+1 ;i <= page  ; i++) //>
+	{
+		prow += '<li  onclick="getPaging(this.value)" id="page'+ i +'" value="'+ i +'"><a herf="#">'+ i +'</a></li>';
+	}
+	$("#pageNext").remove();
+	$("#pageItems").append(prow);
+      
+    }
+    else if(totalPage > page)	// too much page item
+    {   
+	for(var i = page+1 ;i <= totalPage  ; i++) //>
+        {
+		 $("#page"+i).remove();
+        }
+        $("#pageNext").remove();
+    }
+    else
+    {	
+	$("#pageNext").remove();
+    }
+    prow ='';
+    totalPage = page;
+    prow += ' <li onclick="getPaging(this.value)"  value="-2" id="pageNext"><a>    <span aria-hidden="true">&raquo;</span></a></li>'
+    $("#pageItems").append(prow);
+
+}
+
+
+function updateShowList(pageType,pageEntrys,pageNum) 	// UPDATE THE LIST ON THE WEB
+{						// Hide or show product box
+  var entryCount = 0;
+  var shiftEntry = (pageNum-1)*pageEntrys ; 	// shift by page 
+  var pageCount = 0 ;
+//  console.log(pageType,pageEntrys,pageNum,shiftEntry,'======');
+  if(pageEntrys==-1) 				// need to show all on the page
+  {
+	shiftEntry = 0;
+	pageEntrys=proList.length;
+	currentPage = 1;
+	$("#pageList").addClass('hide');
+  }
+  else
+  {
+	$("#pageList").removeClass();
+  }
+  if(shiftEntry > proList.length) //>
+  {
+    currentPage = 1;pageNum = 1;
+  }
+  for(var i = proList.length-1; i >= 0; i--) 
+  {	
+	if(pageType == 'default')  	// DEFAULT PAGE
+	{
+		if(entryCount >=  pageEntrys || shiftEntry > 0  )   	// the entry before shift or afert page
+		{
+			$('#proID'+proList[i]['id']).addClass('hide'); // Hide Other 
+			if(shiftEntry > 0 ) {	shiftEntry--;	}
+		}
+		else							// the entry we need to show
+		{	
+			entryCount++;
+		 	proList[i]['show'] = 1;
+			$('#proID'+proList[i]['id']).removeClass();	// Show Selected Product 
+//			console.log('TYPE:',proList[i]['type'].indexOf(pageType, 0) ,proList[i]['type']);
+		}
+	}
+	else				// OTHER TYPES PAGES
+	{
+		if(proList[i]['type'].indexOf(pageType, 0)==-1)
+		{
+			 $('#proID'+proList[i]['id']).addClass('hide'); // Hide Other
+//			 console.log('TYPE:',proList[i]['type'],' Hide ',proList[i]['id']);
+		}
+		else if(entryCount >=  pageEntrys || shiftEntry > 0 )
+		{
+			$('#proID'+proList[i]['id']).addClass('hide'); // Hide Other
+                        if(shiftEntry > 0) {  shiftEntry--;   }
+
+		}
+		else
+		{
+			entryCount++;
+			$('#proID'+proList[i]['id']).removeClass();     // Show Selected Product
+  //                      console.log('TYPE:',proList[i]['type'].indexOf(pageType, 0) ,proList[i]['type']);
+		}
+	}
+
+  }
+}
+
+function ajaxGetProduct(pageEntrys,pageNum){
+  // Get Product and create all Product BOX (must execut just 1 time)
+  $.ajax({
+    url:"/product/get/" ,
+    dataType : "json",
+    data:{format:'json'},
+    success: function(data)
+    {
+//      proList = data['data'];
+      $.each(data, function(index, item)
+      {
+          var row='';
+          var count = 0;
+          $.each(item,function(index ,value)
+          {
+	      proList[index]={};
+	      proList[index]['id']=value[1]['id'];
+	      proList[index]['show']=0; // 0 = hide ,1 = show
+	      proList[index]['type']=value[1]['type'];
+              var id = value[1]['id'];
+              var name = value[1]['name'];
+              var bu = value[1]['bu'];
+              var status = value[1]['status'];
+              var type = value[1]['type'];
+              var pic = value[1]['pic'];
+              var doc = value[1]['doc'];
+              row += '<div id="proID'+id+'" class="hide"><div class="col-md-3 "> <div class="product-boxx">';
+              row += '<div class="product-up">';
+              if(pic.length > 0)
+              {
+                  row += '<img src="/media/' + pic[0] +'" alt="' + name + '" class="img-rounded img-responsive">';
+              }
+              else
+              {
+                  row += '<img src="/media/productWithNoPic.png" alt="' + name + '" class="img-rounded img-responsive">';
+              }
+              row += '</div>';
+              row += '<div class="product-down">';
+              row += '<h4>ID : ' + id + '</h4>';
+              row += '<p><b>Name :</b>' + name + '<br>';
+              row += '<b>Status :</b>' + status + '<br>';
+              row += '<b>Type :</b>';
+   	      $.each(type,function(index ,tt){
+		  row += tt+', ';
+              
+	      });
+
+              row += '<br>';
+              row += '<a role="button" href="/product/detail?id=' + id + '" class="btn btn-primary btn-xs">Info</a>';
+              row += '</div></div></div></div>';
+              if(pic.length > 0) {
+                  $.each(pic,function(index ,pp){
+                  });
+              }
+              if(doc.length > 0) {
+                  $.each(doc,function(index ,dd){
+                  });
+              }
+          });
+          $('#mydefPage').append(row);
+	});
+        proList.reverse();
+	showType='default';
+	$("#defPro_length").trigger('change');
+    }
+  })
+}
+
+
+$("#defPro_length").change(function(){
+    console.log('change!');
+    var pageEntrys = $("#defPro_length").val();
+    currentPage =1;
+//    console.log('change!',showType,pageEntrys,currentPage);
+    updateShowList(showType,pageEntrys,currentPage);
+    if(pageEntrys==-1){    pageEntrys=proList.length;   }
+    updatePageList(pageEntrys,currentPage);
+    getPaging(currentPage)
+});
+
+console.log('0');
+ajaxGetProduct(-1,1);
+console.log('1');
+$("#defPro_length")[0].selectedIndex = 3;
+console.log('3');
+</script>
+
+
+
+
+
+    </div>
+{% if perms.change_usersocialauth %}
+  <div class="row">
+    <h3>Control Page</h3>
+    <p>Must Login as Root(TODO) </p>
+    <div class="col-md-4">
+      <a role="button" href="/product/insert" class="btn btn-info">New</a>
+    </div>
+  </div>
+{% endif %}
+
+</div>
+
+
+{% endblock %}

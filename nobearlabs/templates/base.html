@@ -1,0 +1,174 @@
+{% extends 'bootstrap.html' %}
+
+{% load url from future %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block bootstrap3_content %}
+
+
+{% block navi %}
+<!-- navi Start  -->
+<header>
+<nav class="navbar navbar-inverse  navbar-static-top">
+  <div class="container-fluid" >
+    <div class="navbar-header">
+      <!-- Button for small device -->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- LOGO  -->
+      <a class="navbar-brand" href="/">	<img  alt="NoBear" src="{{STATIC_URL}}/media/logo/nobearlogo.png"  style="height:30px"> </a>
+    </div>
+
+    <!-- Buttons on Navi bar -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>  <a href="/main"> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>  Main  </a>	</li>
+        <li>  <a href="/ds"> <span class="glyphicon glyphicon-play" aria-hidden="true"></span>  DS </a>	</li>
+	<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
+  	    Demos <span class="caret">
+	  </a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'home' %}">home</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'chart' %}">Morris Chart</a></li>
+            <li><a href="{% url 'metrics' %}">Metrics</a></li>
+            <li><a href="{% url 'tables' %}">Tables</a></li>
+	    <li><a href="{% url 'video' %}">Video</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'formset_default' %}">formset</a></li>
+            <li><a href="{% url 'form_default' %}">form</a></li>
+            <li><a href="{% url 'form_by_field' %}">form_by_field</a></li>
+            <li><a href="{% url 'form_horizontal' %}">form_horizontal</a></li>
+            <li><a href="{% url 'form_inline' %}">form_inline</a></li>
+            <li><a href="{% url 'form_with_files' %}">form_with_files</a></li>
+            <li><a href="{% url 'pagination' %}">pagination</a></li>
+            <li><a href="{% url 'misc' %}">miscellaneous</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	    Product <span class="caret"></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'productList' %}">List</a></li>
+{% if perms.change_site %}
+            <li><a href="{% url 'newProduct' %}">New</a></li>
+            <li><a href="{% url 'productdetail' %}">Detail</a></li>
+{% endif %}
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            Machine <span class="caret"></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'machine' %}">Main</a></li>
+          </ul>
+        </li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+	<li><a href="{% url 'changelog' %}">Log</a></li>
+        <li><a href="/about"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> About </a></li>
+	<!-- Check Login / Logout -->
+{% if user.is_authenticated %}
+        <li><a href="/users" color="#FFFFFF"> Hi {{user.username}} </a></li>
+	<li><a role="button" class="btn"  href="/logout"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Logout </a></li>
+{% else %}
+        <li><a role="button" class="btn"  href="/login"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Login   </a>	</li>
+	<li><a role="button" class="btn"  href="/createuser"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Signup</a></li>
+{% endif %}
+
+
+
+      </div> 
+  </div>
+</nav>
+</header>
+<!-- navi End  -->
+
+{% bootstrap_messages %}
+{% endblock %}
+
+<!-- Block Start -->
+{% block content %}
+	(no content)
+{% endblock %}
+
+<!-- Block End  -->
+
+<!-- Footer Start  -->
+{% block footer %}
+<footer>
+  <div class="footer-main-type1">
+    <div class="container">
+      <div class="row">
+        <div class="footer-col col-md-5">
+
+          <div class="fb-page" data-href="https://www.facebook.com/nobearlabs" data-small-header="true" data-adapt-container-width="true"
+	  data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore">
+	  <blockquote cite="https://www.facebook.com/nobearlabs"><a href="https://www.facebook.com/nobearlabs">NoBear實驗室</a></blockquote></div></div>
+
+        </div>
+        <div class="footer-col col-md-4">
+          <h3>Around the Web</h3>
+            <ul class="list-inline">
+              <li>
+                <a class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a>
+              </li>
+              <li>
+                <a href="#" class="btn btn-social-icon btn-google"><i class="fa fa-fw fa-google-plus"></i></a>
+              </li>
+              <li>
+		<a href="https://www.facebook.com/nobearlabs" class="btn btn-social-icon btn-facebook"><i class="fa fa-fw fa-facebook"></i></a>
+              </li>
+              <li>
+		<a href="#" class="btn btn-social-icon btn-linkedin"><i class="fa fa-fw fa-linkedin"></i></a>
+              </li>
+              <li>
+		<a href="#" class="btn btn-social-icon btn-github"><i class="fa fa-fw fa-github"></i></a>
+              </li>
+            </ul>
+         </div>
+        <div class="footer-col col-md-3">
+          <h3>About noBearlabs</h3>
+          <p> noBearlabs is use open source
+	  Bootstrap: <a href="http://startbootstrap.com">Start Bootstrap</a>.
+	  And Django framework: <a href="https://www.djangoproject.com/">Start Django</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-main-type2">
+    <div class="container">
+      <div class="row">
+	<div class="col-md-6">
+	   <p> Copyright © noBearlabs.com 2015
+           <a href="mailto:service@aaa.com">service@aaa.com</a>
+           </p>
+	</div>
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+<!--Footer End  -->
+</div>
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.4&appId=499066306920395";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+{% endblock %}

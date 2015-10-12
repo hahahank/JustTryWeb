@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block content %}
+
+
+
+<div class="row">
+
+<!--
+<iframe src="https://docs.google.com/forms/d/1gTsaU2n8BRiXI2QIuN6Qadpj1YU_UJt7m9LaIrEOXVM/viewform?embedded=true" width="760" height="500" 
+frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+-->
+
+
+<div class="container">
+  <h2 class="text-center">Web Site Change Log~</h2>
+  <hr class="long-separator" style="text-align:center">
+  <script type="text/javascript">var submitted=false;</script>
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){window.location='thankyou';}"></iframe>
+</div>
+
+
+<div class="container">
+{% if perms.change_site %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      New Change Log
+    </div>
+    <div class="panel-body">
+      <form action="https://docs.google.com/forms/d/1gTsaU2n8BRiXI2QIuN6Qadpj1YU_UJt7m9LaIrEOXVM/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true;">
+      <div class="form-group bootstrap3-req">
+	<label class="control-label" for="entry_2033770290">function</label>
+	<div class="row"><div class="col-xs-4">
+		<div class="checkbox">
+		  <label><input type="checkbox" name="entry.1329619165" value="main" id="group_1329619165_1" role="checkbox" class="ss-q-checkbox" aria-required="true"> 
+		  main</label>	</div>
+        	<div class="checkbox">
+		  <label><input type="checkbox" name="entry.1329619165" value="demo" id="group_1329619165_2" role="checkbox" class="ss-q-checkbox" aria-required="true"> 
+		  demo</label>        </div>
+	        <div class="checkbox">
+		  <label><input type="checkbox" name="entry.1329619165" value="product" id="group_1329619165_3" role="checkbox" class="ss-q-checkbox" aria-required="true"> 
+		  product</label>        </div>
+	</div>
+	<div class="col-xs-4">
+	        <div class="checkbox">
+		  <label><input type="checkbox" name="entry.1329619165" value="machine" id="group_1329619165_4" role="checkbox" class="ss-q-checkbox" aria-required="true"> 
+		  machine</label>        </div>
+	        <div class="checkbox">
+		  <label><input type="checkbox" name="entry.1329619165" value="user" id="group_1329619165_5" role="checkbox" class="ss-q-checkbox" aria-required="true"> 
+		  user</label>        </div>
+        	<div class="checkbox">
+		  <label><input type="checkbox" name="entry.1329619165" value="admin" id="group_1329619165_6" role="checkbox" class="ss-q-checkbox" aria-required="true"> 
+		  admin</label>        </div>
+        </div>
+        <div class="col-xs-4">
+	        <div class="checkbox">
+		  <label><input type="checkbox" name="entry.1329619165" value="other" id="group_1329619165_7" role="checkbox" class="ss-q-checkbox" aria-required="true"> 
+		  other</label>        </div>
+        	<div class="checkbox">
+		  <label><input type="checkbox" name="entry.1329619165" value="google doc" id="group_1329619165_8" role="checkbox" class="ss-q-checkbox" aria-required="true"> 
+		  google doc</label>        </div>
+	</div></div>
+
+	<div class="error-message" id="2033770290_errorMessage"></div>
+<!--        <span id="helpBlock" class="help-block">這是必填問題</span>-->
+    </div>
+
+    <div class="form-group bootstrap3-req">
+	 <label class="control-label" for="entry_1316176116">description</label>
+        <textarea name="entry.1316176116" rows="8" cols="0" class="form-control" id="entry_1316176116"  required="required" dir="auto" aria-label="description  " aria-required="true" required="">
+	</textarea>
+        <div class="error-message" id="1788679258_errorMessage"></div>
+<!--        <span id="helpBlock" class="help-block">這是必填問題</span>-->
+    </div>
+
+    <div class="form-group bootstrap3-req">
+        <label class="control-label" for="entry_1459153160">note</label>
+        <input type="text" name="entry.1459153160" value="" class="form-control" id="entry_1459153160" dir="auto" aria-label="note"   title="">
+        <div class="error-message" id="1420401576_errorMessage"></div>
+    </div>
+
+    <input type="hidden" name="draftResponse" value="[,,&quot;640328732280595247&quot;]">
+        <input type="hidden" name="pageHistory" value="0">
+        <input type="hidden" name="fvv" value="0">
+        <input type="hidden" name="fbzx" value="640328732280595247">
+
+    <input type="submit" name="submit" value="提交" id="ss-submit" class="jfk-button jfk-button-action ">
+    </div>
+</div>
+{% endif %}
+</div>
+
+
+
+<!--
+<iframe width="600" height="371" 
+seamless frameborder="0" scrolling="no" 
+src="https://docs.google.com/spreadsheets/d/17iw19bImgGBcOy1lF6bM_e1WmkzvD-EaRQbSanSD-bk/pubchart?oid=1875612426&amp;format=interactive"></iframe>
+
+
+<iframe src="https://docs.google.com/spreadsheets/d/17iw19bImgGBcOy1lF6bM_e1WmkzvD-EaRQbSanSD-bk/pubhtml?widget=true&amp;headers=false"></iframe>
+-->
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
+
+<div class="container"> 
+<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/17iw19bImgGBcOy1lF6bM_e1WmkzvD-EaRQbSanSD-bk/pubchart?oid=1989858081&amp;format=interactive"></iframe>
+</div>
+
+<div class="container" id="test"></div>
+<script>
+//https://docs.google.com/spreadsheets/d/17iw19bImgGBcOy1lF6bM_e1WmkzvD-EaRQbSanSD-bk/edit?usp=sharing
+var proList=[];
+$.getJSON("https://spreadsheets.google.com/feeds/list/17iw19bImgGBcOy1lF6bM_e1WmkzvD-EaRQbSanSD-bk/1/public/values?alt=json-in-script&callback=?", function(json){
+	console.log("JSON JSON");
+	var e = json.feed.entry,
+	l = e.length,
+	row = "",
+        logList=[],
+	entry, i, time,fun, description, note,enable;
+	for (i = 0; i < l; i++) //>
+	{
+	  entry = e[i];
+	  time = entry.gsx$時間戳記.$t;
+	  fun = entry.gsx$fun.$t;
+	  description = entry.gsx$description.$t;
+	  note = entry.gsx$note.$t;
+	  enable = entry.gsx$enable.$t;
+	  logList[i] = [time,fun,description,note,enable];
+	//  html += time +"   "+ fun + " " + description + " " + note + "<br/>";
+	}
+	
+	for(var i = logList.length-1 ; i>= 0 ; i--)
+	{//	console.log(logList,logList[i],i);
+	    if(logList[i][4] != -1) // enable
+	    {
+		row += '<p><b> ID: '+ i + '</b> time:' + logList[i][0]+'</p>' +  '<div class="well">' ;
+		row += '<p><b> Function</b> : '+ logList[i][1]+'</p>' ;
+		row += '<p><b> Description</b> : '+ logList[i][2] +'</p>';
+		row += '<p><b> Note</b> : '+ logList[i][3]+'</p></div>';
+	    }
+	}
+	$("#test").html(row);
+});
+</script>
+
+
+
+
+
+{% endblock %}

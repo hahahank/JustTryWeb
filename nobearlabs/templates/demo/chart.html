@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <h1>Demo <small>Ajax and some Chart</small></h1>
+  </div>
+  <!-- START MORRIS -->
+  <div class="row">
+    <a href="http://morrisjs.github.io/morris.js/"><h2> morris js </h2></a>    
+    <div class="col-lg-6  col-md-6 " >
+      <p> morris single line chart </p>
+      <div id="myfirstchart" style="height: 250px;"></div>
+    </div>
+     <div class="col-lg-6  col-md-6 " >
+      <p> morris donut chart </p>
+      <div id="morris-donut-chart"></div>
+    </div>
+  </div>
+  <!-- START PEITY -->
+  <div class="row">
+    <a href="http://benpickles.github.io/peity/"><h2> Peity js </h2></a>
+    <div class="col-lg-4 col-md-4">
+      <div class="col-lg-12  col-md-12 " >
+        <p>peity data attrubutes chart </p>
+        <p class="data-attributes">
+          <span data-peity='{ "fill": ["red", "#eeeeee"],    "innerRadius": 10, "radius": 40 }'>1/7</span>
+          <span data-peity='{ "fill": ["orange", "#eeeeee"], "innerRadius": 14, "radius": 36 }'>2/7</span>
+          <span data-peity='{ "fill": ["yellow", "#eeeeee"], "innerRadius": 16, "radius": 32 }'>3/7</span>
+          <span data-peity='{ "fill": ["green", "#eeeeee"],  "innerRadius": 18, "radius": 28 }'>4/7</span>
+          <span data-peity='{ "fill": ["blue", "#eeeeee"],   "innerRadius": 20, "radius": 24 }'>5/7</span>
+          <span data-peity='{ "fill": ["indigo", "#eeeeee"], "innerRadius": 18, "radius": 20 }'>6/7</span>
+          <span data-peity='{ "fill": ["violet", "#eeeeee"], "innerRadius": 15, "radius": 16 }'>7/7</span>
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-8">
+      <div class="col-sm-6  col-md-6 " >
+      <p>peity pie chart</p>
+      <span class="pie">1/5</span>
+      <span class="pie">226/360</span>
+      <span class="pie">0.52/1.561</span>
+      <span class="pie">1,4</span>
+      <span class="pie">226,134</span>
+      <span class="pie">0.52,1.041</span>
+      <span class="pie">1,2,3,2,2</span>
+      </div>
+      <div class="col-sm-6  col-md-6 " >
+      <p>peity  line chart </p>
+      <span class="line">5,3,9,6,5,9,7,3,5,2</span>
+      <span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
+      <span class="line">0,-3,-6,-4,-5,-4,-7,-3,-5,-2</span>
+      </div>
+      <div class="col-sm-6  col-md-6 " >
+      <p>peity bar chart </p>
+      <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
+      <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>
+      <span class="bar">0,-3,-6,-4,-5,-4,-7,-3,-5,-2</span>
+      </div>
+      <div class="col-sm-6  col-md-6 " >
+      <p>peity bar chart </p>
+      <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
+      <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>
+      <span class="bar">0,-3,-6,-4,-5,-4,-7,-3,-5,-2</span>
+      </div>
+    </div>    
+  </div>
+  <!-- END -->
+  <!-- START -->
+  <div class="row">
+    <a href="http://omnipotent.net/jquery.sparkline/#s-about"><h3> Sparkline JS</h3></a>
+    <div class="col-sm-2 col-md-2">
+      <p>sparkline pie chart </p>
+	  <span id="sparkline"></span>
+    </div>
+    <div class="col-sm-12 col-md-12">
+<table class="table table-bordered white-bg">
+                            <thead>
+                            <tr>
+                                <th>Graph</th>
+                                <th>Type</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span id="sparkline1"></span>
+                                </td>
+                                <td>
+                                    Inline line chart
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="sparkline2"></span>
+                                </td>
+                                <td>
+                                    Bar chart
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="sparkline3"></span>
+                                </td>
+                                <td>
+                                    Pie chart
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="sparkline4"></span>
+                                </td>
+                                <td>
+                                    Long inline chart
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="sparkline5"></span>
+                                </td>
+                                <td>
+                                    Tristate chart
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="sparkline6"></span>
+                                </td>
+                                <td>
+                                    Discrete chart
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+    </div>
+
+
+
+
+  </div>  
+  <!-- END -->
+
+<!-- END container-->
+</div>
+
+
+
+
+<!--sparkline -->
+<script>
+$("#sparkline").sparkline([4,3,2], {
+    type: 'pie',
+    width: '100',
+    height: '100'});
+
+
+$(function () {
+    $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52, 25], {
+        type: 'line',
+        lineColor: '#17997f',
+        fillColor: '#1ab394',
+    });
+    $("#sparkline2").sparkline([5, 6, 7, 2, 0, -4, -2, 4], {
+        type: 'bar',
+        barColor: '#1ab394',
+        negBarColor: '#c6c6c6'});
+
+    $("#sparkline3").sparkline([1, 1, 2], {
+        type: 'pie',
+        sliceColors: ['#1ab394', '#b3b3b3', '#e4f0fb']});
+
+    $("#sparkline4").sparkline([34, 43, 43, 35, 44, 32, 15, 22, 46, 33, 86, 54, 73, 53, 12, 53, 23, 65, 23, 63, 53, 42, 34, 56, 76, 15, 54, 23, 44], {
+        type: 'line',
+        lineColor: '#17997f',
+        fillColor: '#ffffff',
+    });
+
+    $("#sparkline5").sparkline([1, 1, 0, 1, -1, -1, 1, -1, 0, 0, 1, 1], {
+        type: 'tristate',
+        posBarColor: '#1ab394',
+        negBarColor: '#bfbfbf'});
+
+
+    $("#sparkline6").sparkline([4, 6, 7, 7, 4, 3, 2, 1, 4, 4, 5, 6, 3, 4, 5, 8, 7, 6, 9, 3, 2, 4, 1, 5, 6, 4, 3, 7, ], {
+        type: 'discrete',
+        lineColor: '#1ab394'});
+
+    $("#sparkline7").sparkline([52, 12, 44], {
+        type: 'pie',
+        height: '150px',
+        sliceColors: ['#1ab394', '#b3b3b3', '#e4f0fb']});
+
+    $("#sparkline8").sparkline([5, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 14, 4, 2, 14, 12, 7], {
+        type: 'bar',
+        barWidth: 8,
+        height: '150px',
+        barColor: '#1ab394',
+        negBarColor: '#c6c6c6'});
+
+    $("#sparkline9").sparkline([34, 43, 43, 35, 44, 32, 15, 22, 46, 33, 86, 54, 73, 53, 12, 53, 23, 65, 23, 63, 53, 42, 34, 56, 76, 15, 54, 23, 44], {
+        type: 'line',
+        lineWidth: 1,
+        height: '150px',
+        lineColor: '#17997f',
+        fillColor: '#ffffff',
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<!-- Peity -->
+<script>
+  $("span.pie").peity("pie")
+  $(".line").peity("line")
+  $(".bar").peity("bar")
+  $(".data-attributes span").peity("donut")
+</script>
+
+
+<!-- single line chart -->
+<script>
+ Morris.Line({
+  resize: true,
+  element: 'myfirstchart',
+  data: [
+    { year: '2008', value: 20 },
+    { year: '2009', value: 10 },
+    { year: '2010', value: 5 },
+    { year: '2011', value: 5 },
+    { year: '2012', value: 20 }
+  ],
+  xkey: 'year',
+  ykeys: ['value'],
+  labels: ['Value'],  
+  hideHover:true,
+});
+
+</script>
+
+
+<!-- Donut chart with ajax -->
+<script>
+  var chart =  Morris.Donut({
+        element: 'morris-donut-chart',
+        data: [{ label: "Download Sales", value: 12 },
+            { label: "In-Store Sales", value: 30 },
+            { label: "Mail-Order Sales", value: 20 } ],
+        resize: true,
+        colors: ['#1e90ff','#87d6c6', '#54cdb4','#1ab394','#3cb371','#2e8b57','#3cb371','#90ee90','#6495ed'],
+  });
+
+  $(function() {
+    $.ajax({
+      dataType:"json",
+      data:{format:'json'},
+      url: "/demo/pttDount/", // This is the URL to the API
+	success:function(res){
+          chart.setData(res);
+	}
+    })
+  });
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block content %}
+
+<script>
+//Disable right click on Video Background
+$(document).ready(function() {
+    $("video").bind("contextmenu",function(){
+        return false;
+        });
+ } );
+</script>
+<!-- vedio header -->
+<header id="vedio-header" style="height: 550px;">
+  <video width="100%" height="100%"  preload="auto" id="video" autoplay="" muted="" loop="" >
+    <source src="{{STATIC_URL}}media/video/mycar2.mp4" type="video/mp4">
+    <source src="{{STATIC_URL}}media/video/ex1.mp4" type="video/mp4">
+
+  </video>
+  <div class ="col-xs-12">
+    <h1 style="text-align:center">Hello 
+	{% if user.is_authenticated %}
+              {{ user.email }}
+              {% else %}
+                guest
+              {% endif %}
+    </h1>
+    <p style="text-align:center">Welcome nobearlabs.com</p>
+    <hr class="long-separator" style="text-align:center">
+    <h2 style="text-align:center">If you have any question please </h2>
+    <p style="text-align:center"><button id="colorless-btn" data-toggle="modal" data-target="#myModal" >Contact Us</button></p>
+  </div>
+</header>
+
+<!-- contact us form  -->
+<script type="text/javascript">var submitted=false;</script>
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){window.location='thankyou';}"></iframe>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Send Message to us</h4>
+      </div>
+
+      <div class="modal-body">
+	<div class="row">
+	<form action="https://docs.google.com/forms/d/1lrwWlgGrdTmTonAEa9k8Lg0Gks1fUR-RjawS-dfvdbg/formResponse" method="post" target="hidden_iframe" onsubmit="submitted=true;">
+          <div class-"row">
+            <div class="form-group">
+              <div class="col-xs-6">
+		<input type="text" name="entry.305859078" value="" class="form-control" id="entry_305859078" dir="auto" aria-label="Name" aria-required="true" required="" title="" placeholder="Name">
+	      </div>
+              <div class="col-xs-6">
+		<input type="text" name="entry.248648842" value="" class="form-control" id="entry_248648842" dir="auto" aria-label="E-mail  請輸入符合模式的內容" aria-required="true" required="" pattern=".*@.*" title="請輸入符合模式的內容" placeholder="E-mail">
+	      </div>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-12">
+		<textarea name="entry.1622825212" rows="12" cols="0" class="form-control" id="entry_1622825212" dir="auto" aria-label="Message" aria-required="true" required="" placeholder="Message"></textarea>
+	      </div>
+            </div>
+          </div>
+          <div class="col-xs-12">
+             <input type="submit" class="btn btn-primary" value="Send Message">
+             <input type="reset" class="btn" value="Clear Form">
+          </div>
+        </form>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Welcome  -->
+<div class="jumbotron" style="background:url('{{STATIC_URL}}/media/bg/bg2.JPG') center center no-repeat  ;background-size:100% auto ;min-height: 480px;"> 
+  <div class="container" >
+    <div class="row" style="background: rgba(100%,100%,100%,0.6);">
+
+      <div class =" col-xs-12 text-center">
+        <h2>Welcome, NoBearLabs!</h2>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+      </div>
+{% if user.is_authenticated %}
+      <div class="col-xs-6">
+      </div>
+{%endif%}
+    </div>
+  </div>
+</div>
+
+<!-- Show pictures -->
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <a  href="#" ><img src="{{STATIC_URL}}/media/bg/bg1.JPG" alt="picture 1" class="img-responsive" ></a>
+    </div>
+    <div class="item">
+      <img src="{{STATIC_URL}}/media/bg/bg3.JPG" alt="..." class="img-responsive" >
+    </div>
+    <div class="item">
+      <img src="{{STATIC_URL}}/media/bg/bg1.JPG" alt="..." class="img-responsive">
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<!-- Show Map -->
+<div >
+    <iframe src="https://www.google.com/maps/d/embed?mid=z0lchQAnan5M.kX-VloXTNJls&ctrl=false" width=100%  height="480"></iframe>
+</div>
+
+<script>
+i4ewOd-pzNkMb-haAclf
+</script>
+{% endblock %}
